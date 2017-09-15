@@ -2,16 +2,17 @@ package com.marekmacko.kotlinapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), WeatherMvp.View {
 
     private lateinit var presenter: WeatherMvp.Presenter
+    @Inject lateinit var weatherRepository: WeatherRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity(), WeatherMvp.View {
     }
 
     private fun init() {
+//        DaggerWeatherComponent.create().inject(this)
+//DaggerWeatherComponent.create().inject(this)
+
         WeatherPresenter(this)
     }
 

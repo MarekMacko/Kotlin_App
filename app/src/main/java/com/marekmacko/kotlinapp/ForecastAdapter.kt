@@ -37,7 +37,7 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
             val weather = weather[0] // TODO: API always return one element
             val iconUrl = generateIconUrl(weather.iconCode)
             itemView.icon.loadFromUrl(iconUrl)
-            itemView.date.text = dateFormatter.format(date)
+            itemView.date.text = dateFormatter.format(date * 1000) // TODO
             itemView.description.text = weather.description
             itemView.maxTemperature.text = "${temp.max}"
             itemView.minTemperature.text = "${temp.min}"
