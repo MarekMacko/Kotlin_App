@@ -3,21 +3,15 @@ package com.marekmacko.kotlinapp
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.marekmacko.kotlinapp.api.WeatherService
 import com.marekmacko.kotlinapp.data.WeeklyForecast
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import com.marekmacko.kotlinapp.mvp.WeatherMvp
+import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), WeatherMvp.View {
 
-    private val API_ZIP_CODE = "94043"
-    private var disposable: Disposable? = null
-    private val weatherService by lazy {
-        WeatherService.create()
-    }
+    private lateinit var presenter: WeatherMvp.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,35 +21,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         forecastListView.layoutManager = LinearLayoutManager(this)
-        loadForecast()
+        WeatherPresenter(this)
     }
 
-    private fun loadForecast() {
-        disposable = weatherService.getWeeklyForecast(API_ZIP_CODE)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result -> showWeekly(result) },
-                        { error -> showError(error.message) }
-                )
+    override fun setPresenter(presenter: WeatherMvp.Presenter) {
+        this.presenter = presenter
+        presenter.fetchForecast()
     }
 
-    private fun showError(message: String?) {
-        if (message != null) {
-            toast(message)
+    override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
+        forecastListView.adapter = ForecastAdapter(weeklyForecast) {
+            toast(it.date.toString())
         }
     }
 
-    private fun showWeekly(weeklyForecast: WeeklyForecast) {
-        initAdapterWithWeeklyForecast(weeklyForecast)
-    }
-
-    private fun initAdapterWithWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        forecastListView.adapter = ForecastAdapter(weeklyForecast) { toast(it.date.toString()) }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        disposable?.dispose()
+    override fun showError(message: String) {
+        toast(message)
     }
 }

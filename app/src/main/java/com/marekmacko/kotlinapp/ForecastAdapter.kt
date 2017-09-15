@@ -15,6 +15,10 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
                       private val itemClick: (DailyForecast) -> Unit)
     : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
+    private val dateFormatter by lazy {
+        DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_forecast, parent, false)
@@ -26,12 +30,8 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
 
     override fun getItemCount(): Int = weeklyForecast.size
 
-    class ViewHolder(view: View, private val itemClick: (DailyForecast) -> Unit)
+    inner class ViewHolder(view: View, private val itemClick: (DailyForecast) -> Unit)
         : RecyclerView.ViewHolder(view) {
-
-        private val dateFormatter by lazy { // TODO: should be in outer class?
-            DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        }
 
         fun bindDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0] // TODO: API always return one element
