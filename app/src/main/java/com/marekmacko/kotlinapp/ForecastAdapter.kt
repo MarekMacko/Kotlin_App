@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
+import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.item_forecast.view.*
 import java.text.DateFormat
 import java.util.*
@@ -27,11 +27,15 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
     class ViewHolder(view: View, private val itemClick: (DailyForecast) -> Unit)
         : RecyclerView.ViewHolder(view) {
 
+        private val dateFormatter by lazy { // TODO: should be in outer class?
+            DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+        }
+
         fun bindDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
-            val weather = weather[0] // TODO
-            val iconUrl = generateIconUrl(weather.icon)
-            Picasso.with(itemView.context).load(iconUrl).into(itemView.icon)
-            itemView.date.text = convertDate(date)
+            val weather = weather[0] // TODO: API always return one element
+            val iconUrl = generateIconUrl(weather.iconCode)
+            itemView.icon.loadFromUrl(iconUrl)
+            itemView.date.text = dateFormatter.format(date)
             itemView.description.text = weather.description
             itemView.maxTemperature.text = "${temp.max}"
             itemView.minTemperature.text = "${temp.min}"
@@ -40,11 +44,6 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
 
         private fun generateIconUrl(iconCode: String) =
                 "http://openweathermap.org/img/w/$iconCode.png"
-
-        private fun convertDate(date: Long): String {
-            val dateFormatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-            return dateFormatter.format(date)
-        }
     }
 }
 
