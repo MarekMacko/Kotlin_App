@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.marekmacko.kotlinapp.data.DailyForecast
+import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.item_forecast.view.*
 import java.text.DateFormat
