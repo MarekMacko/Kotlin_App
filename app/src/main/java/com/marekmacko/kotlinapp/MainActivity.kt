@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity(), WeatherMvp.View {
     }
 
     private fun init() {
-        forecastListView.layoutManager = LinearLayoutManager(this)
         WeatherPresenter(this)
     }
 

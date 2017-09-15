@@ -1,7 +1,7 @@
 package com.marekmacko.kotlinapp.base
 
 
-interface BaseView<T> {
+interface BaseView<in T : BasePresenter> {
     fun setPresenter(presenter: T)
 
     fun showError(message: String)
