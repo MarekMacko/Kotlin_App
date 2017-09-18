@@ -1,30 +1,27 @@
 package com.marekmacko.kotlinapp.mvp
 
-import com.marekmacko.kotlinapp.api.WeatherService
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.marekmacko.kotlinapp.WeatherRepository
+import com.marekmacko.kotlinapp.base.DataCallback
+import com.marekmacko.kotlinapp.data.WeeklyForecast
 
 
-class WeatherPresenter(private val view: WeatherMvp.View) : WeatherMvp.Presenter {
-
-    private val API_ZIP_CODE = "94043"
-
-    private val weatherService by lazy {
-        WeatherService.create()
-    }
+class WeatherPresenter(private val view: WeatherMvp.View,
+                       private val weatherRepository: WeatherRepository) : WeatherMvp.Presenter {
 
     init {
         view.setPresenter(this)
     }
 
-    override fun fetchForecast() {
+    override fun fetchForecast() { // TODO: lambda
         // TODO: add disposable
-        weatherService.getWeeklyForecast(API_ZIP_CODE)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result -> view.updateWeeklyForecast(result) },
-                        { error -> view.showError(error?.message ?: "No error message") }
-                )
+        weatherRepository.getWeeklyForecast(object : DataCallback<WeeklyForecast> {
+            override fun onDataLoaded(data: WeeklyForecast) {
+                view.updateWeeklyForecast(data)
+            }
+
+            override fun onError(errorMessage: String) {
+                view.showError(errorMessage)
+            }
+        })
     }
 }

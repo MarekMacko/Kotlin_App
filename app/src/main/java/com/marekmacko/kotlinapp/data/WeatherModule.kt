@@ -11,6 +11,5 @@ class WeatherModule {
 
     @Provides
     @Singleton
-    fun provideWeatherRepository(): WeatherRepository =
-            WeatherRepository()
+    fun provideWeatherRepository(): WeatherRepository = WeatherRepository()
 }

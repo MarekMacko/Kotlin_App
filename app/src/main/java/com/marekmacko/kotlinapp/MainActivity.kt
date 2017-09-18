@@ -21,10 +21,8 @@ class MainActivity : AppCompatActivity(), WeatherMvp.View {
     }
 
     private fun init() {
-//        DaggerWeatherComponent.create().inject(this)
-//DaggerWeatherComponent.create().inject(this)
-
-        WeatherPresenter(this)
+        DaggerWeatherComponent.create().inject(this)
+        WeatherPresenter(this, weatherRepository)
     }
 
     override fun setPresenter(presenter: WeatherMvp.Presenter) {
