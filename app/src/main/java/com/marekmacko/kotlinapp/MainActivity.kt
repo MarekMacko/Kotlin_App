@@ -2,6 +2,7 @@ package com.marekmacko.kotlinapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.marekmacko.kotlinapp.data.DailyForecast
 import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
@@ -33,8 +34,16 @@ class MainActivity : AppCompatActivity(), WeatherMvp.View {
 
     override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
         forecastListView.adapter = ForecastAdapter(weeklyForecast) {
-            toast(it)
+            showDayForecastDialog(it)
         }
+    }
+
+    private fun showDayForecastDialog(dailyForecast: DailyForecast) {
+        val fragment = DailyForecastFragment.newInstance(dailyForecast)
+        fragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 
     override fun showError(message: String) = toast(message)

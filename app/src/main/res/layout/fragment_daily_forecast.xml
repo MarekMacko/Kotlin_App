@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/pressureLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pressure"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pressureValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/pressureLabel"
+        tools:text="56" />
+
+    <TextView
+        android:id="@+id/humidityLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/humidity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pressureLabel" />
+
+    <TextView
+        android:id="@+id/humidityValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/humidityLabel"
+        tools:text="21" />
+
+    <TextView
+        android:id="@+id/tempLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/temperature"
+        app:layout_constraintLeft_toLeftOf="@+id/humidityLabel"
+        app:layout_constraintTop_toBottomOf="@id/humidityLabel" />
+
+    <TextView
+        android:id="@+id/tempDayLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="@string/day"
+        app:layout_constraintLeft_toLeftOf="@+id/tempLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tempLabel" />
+
+    <TextView
+        android:id="@+id/tempDayValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tempDayLabel"
+        tools:text="36" />
+
+    <TextView
+        android:id="@+id/tempMorningLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/morning"
+        app:layout_constraintLeft_toLeftOf="@+id/tempDayLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tempDayLabel" />
+
+    <TextView
+        android:id="@+id/tempMorningValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tempMorningLabel"
+        tools:text="15" />
+
+    <TextView
+        android:id="@+id/tempEveningLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/evening"
+        app:layout_constraintLeft_toLeftOf="@+id/tempMorningLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tempMorningLabel" />
+
+    <TextView
+        android:id="@+id/tempEveningValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tempEveningLabel"
+        tools:text="20" />
+
+    <TextView
+        android:id="@+id/tempNightLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/night"
+        app:layout_constraintLeft_toLeftOf="@+id/tempEveningLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tempEveningLabel" />
+
+    <TextView
+        android:id="@+id/tempNightValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tempNightLabel"
+        tools:text="25" />
+
+    <TextView
+        android:id="@+id/tempMinLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/min"
+        app:layout_constraintLeft_toLeftOf="@+id/tempNightLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tempNightLabel" />
+
+    <TextView
+        android:id="@+id/tempMinValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tempMinLabel"
+        tools:text="12" />
+
+    <TextView
+        android:id="@+id/tempMaxLabel"
+        style="@style/TextDailyWeather.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/max"
+        app:layout_constraintLeft_toLeftOf="@+id/tempMinLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tempMinLabel" />
+
+    <TextView
+        android:id="@+id/tempMaxValueView"
+        style="@style/TextDailyWeather.Param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tempMaxLabel"
+        tools:text="40" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+</android.support.constraint.ConstraintLayout>

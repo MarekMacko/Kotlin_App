@@ -1,11 +1,21 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TextDailyWeather">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextDailyWeather.Label">
+        <item name="android:paddingStart">5dp</item>
+    </style>
+
+    <style name="TextDailyWeather.Param">
+        <item name="android:paddingStart">2dp</item>
     </style>
 
 </resources>

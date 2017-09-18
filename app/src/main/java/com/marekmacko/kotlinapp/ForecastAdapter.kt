@@ -8,16 +8,10 @@ import com.marekmacko.kotlinapp.data.DailyForecast
 import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.item_forecast.view.*
-import java.text.DateFormat
-import java.util.*
 
 class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
-                      private val itemClick: (String) -> Unit)
+                      private val itemClick: (DailyForecast) -> Unit)
     : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
-
-    private val dateFormatter by lazy {
-        DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,18 +24,17 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
 
     override fun getItemCount(): Int = weeklyForecast.size
 
-    inner class ViewHolder(view: View, private val itemClick: (String) -> Unit)
+    inner class ViewHolder(view: View, private val itemClick: (DailyForecast) -> Unit)
         : RecyclerView.ViewHolder(view) {
 
         fun bindDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0] // TODO: API always return one element
-            val dateText = dateFormatter.format(date * 1000) // TODO
             itemView.icon.loadFromUrl(weather.iconUrl)
-            itemView.date.text = dateText
+            itemView.date.text = date
             itemView.description.text = weather.description
             itemView.maxTemperature.text = "${temp.max}"
             itemView.minTemperature.text = "${temp.min}"
-            itemView.setOnClickListener { itemClick(dateText) }
+            itemView.setOnClickListener { itemClick(this) }
         }
     }
 }

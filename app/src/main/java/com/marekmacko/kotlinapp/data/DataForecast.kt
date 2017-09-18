@@ -1,7 +1,14 @@
 package com.marekmacko.kotlinapp.data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+import java.text.DateFormat
+import java.util.*
 
+
+private val dateFormatter by lazy {
+    DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+}
 
 data class WeeklyForecast(val city: City,
                           @SerializedName("list") private val days: List<DailyForecast>) {
@@ -15,11 +22,12 @@ data class WeeklyForecast(val city: City,
 data class City(val id: Long, val name: String, val coord: Coordinates,
                 val country: String, val population: Int)
 
-data class DailyForecast(@SerializedName("dt") val date: Long,
-                         val temp: Temperature, val pressure: Float,
-                         val humidity: Int, val weather: List<Weather>,
-                         val speed: Float, val deg: Int, val clouds: Int,
-                         val rain: Float)
+data class DailyForecast(private val dt: Long, val temp: Temperature, val pressure: Float,
+                         val humidity: Int, val weather: List<Weather>, val speed: Float,
+                         val deg: Int, val clouds: Int, val rain: Float): Serializable {
+    val date: String
+        get() = dateFormatter.format(dt * 1000)
+}
 
 data class Coordinates(val lon: Float, val lat: Float)
 
