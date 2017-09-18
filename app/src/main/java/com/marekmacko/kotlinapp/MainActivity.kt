@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
+import com.marekmacko.kotlinapp.repository.WeatherRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
