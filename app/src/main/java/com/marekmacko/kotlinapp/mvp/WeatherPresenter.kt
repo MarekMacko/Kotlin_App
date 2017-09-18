@@ -12,16 +12,10 @@ class WeatherPresenter(private val view: WeatherMvp.View,
         view.setPresenter(this)
     }
 
-    override fun fetchForecast() {
-        // TODO: add disposable
-        weatherRepository.getWeeklyForecast(object : DataCallback<WeeklyForecast> {
-            override fun onDataLoaded(data: WeeklyForecast) {
-                view.updateWeeklyForecast(data)
-            }
+    override fun fetchForecast() = // TODO: add disposable
+            weatherRepository.getWeeklyForecast(object : DataCallback<WeeklyForecast> {
+                override fun onDataLoaded(data: WeeklyForecast) = view.updateWeeklyForecast(data)
 
-            override fun onError(errorMessage: String) {
-                view.showError(errorMessage)
-            }
-        })
-    }
+                override fun onError(errorMessage: String) = view.showError(errorMessage)
+            })
 }

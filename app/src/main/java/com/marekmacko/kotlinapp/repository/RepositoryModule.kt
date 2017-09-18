@@ -1,7 +1,5 @@
-package com.marekmacko.kotlinapp.module
+package com.marekmacko.kotlinapp.repository
 
-import com.marekmacko.kotlinapp.repository.RemoteWeatherRepository
-import com.marekmacko.kotlinapp.repository.WeatherRepository
 import com.marekmacko.kotlinapp.api.WeatherService
 import dagger.Module
 import dagger.Provides

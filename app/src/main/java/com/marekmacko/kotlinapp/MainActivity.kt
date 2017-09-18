@@ -33,11 +33,9 @@ class MainActivity : AppCompatActivity(), WeatherMvp.View {
 
     override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
         forecastListView.adapter = ForecastAdapter(weeklyForecast) {
-            toast(it.date.toString())
+            toast(it)
         }
     }
 
-    override fun showError(message: String) {
-        toast(message)
-    }
+    override fun showError(message: String) = toast(message)
 }

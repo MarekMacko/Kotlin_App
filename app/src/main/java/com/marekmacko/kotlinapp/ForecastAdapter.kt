@@ -12,7 +12,7 @@ import java.text.DateFormat
 import java.util.*
 
 class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
-                      private val itemClick: (DailyForecast) -> Unit)
+                      private val itemClick: (String) -> Unit)
     : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
     private val dateFormatter by lazy {
@@ -30,18 +30,19 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
 
     override fun getItemCount(): Int = weeklyForecast.size
 
-    inner class ViewHolder(view: View, private val itemClick: (DailyForecast) -> Unit)
+    inner class ViewHolder(view: View, private val itemClick: (String) -> Unit)
         : RecyclerView.ViewHolder(view) {
 
         fun bindDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0] // TODO: API always return one element
             val iconUrl = generateIconUrl(weather.iconCode)
+            val dateText = dateFormatter.format(date * 1000) // TODO
             itemView.icon.loadFromUrl(iconUrl)
-            itemView.date.text = dateFormatter.format(date * 1000) // TODO
+            itemView.date.text = dateText
             itemView.description.text = weather.description
             itemView.maxTemperature.text = "${temp.max}"
             itemView.minTemperature.text = "${temp.min}"
-            itemView.setOnClickListener { itemClick(dailyForecast) }
+            itemView.setOnClickListener { itemClick(dateText) }
         }
 
         private fun generateIconUrl(iconCode: String) =
