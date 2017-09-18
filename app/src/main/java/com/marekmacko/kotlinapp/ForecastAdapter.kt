@@ -35,18 +35,14 @@ class ForecastAdapter(private val weeklyForecast: WeeklyForecast,
 
         fun bindDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0] // TODO: API always return one element
-            val iconUrl = generateIconUrl(weather.iconCode)
             val dateText = dateFormatter.format(date * 1000) // TODO
-            itemView.icon.loadFromUrl(iconUrl)
+            itemView.icon.loadFromUrl(weather.iconUrl)
             itemView.date.text = dateText
             itemView.description.text = weather.description
             itemView.maxTemperature.text = "${temp.max}"
             itemView.minTemperature.text = "${temp.min}"
             itemView.setOnClickListener { itemClick(dateText) }
         }
-
-        private fun generateIconUrl(iconCode: String) =
-                "http://openweathermap.org/img/w/$iconCode.png"
     }
 }
 

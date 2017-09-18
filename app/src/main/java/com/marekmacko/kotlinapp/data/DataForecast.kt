@@ -26,9 +26,8 @@ data class Coordinates(val lon: Float, val lat: Float)
 data class Temperature(val day: Float, val min: Float, val max: Float,
                        val night: Float, val eve: Float, val morn: Float)
 
-data class Weather(val id: Long, val min: String, val description: String,
-                   @SerializedName("icon") val iconCode: String) { // TODO private iconCode
-    val iconUrl: String by lazy { // TODO Fix NPE
-        "http://openweathermap.org/img/w/$iconCode.png"
-    }
+data class Weather(val id: Long, val main: String, val description: String,
+                   @SerializedName("icon") private val iconCode: String) {
+    val iconUrl: String
+        get() = "http://openweathermap.org/img/w/$iconCode.png"
 }
