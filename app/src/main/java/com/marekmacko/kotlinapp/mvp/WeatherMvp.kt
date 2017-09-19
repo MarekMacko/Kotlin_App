@@ -7,7 +7,7 @@ import com.marekmacko.kotlinapp.data.WeeklyForecast
 
 interface WeatherMvp {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView {
         fun updateWeeklyForecast(weeklyForecast: WeeklyForecast)
     }
 

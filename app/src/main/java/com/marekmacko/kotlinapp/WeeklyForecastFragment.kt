@@ -17,9 +17,9 @@ import javax.inject.Inject
 
 class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
 
-    private lateinit var forecastListAdapter: ForecastListAdapter
-    private lateinit var presenter: WeatherMvp.Presenter
+    @Inject lateinit var presenter: WeatherPresenter
     @Inject lateinit var weatherRepository: WeatherRepository
+    private lateinit var forecastListAdapter: ForecastListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
@@ -32,8 +32,11 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
     private fun init() {
         activity.title = getString(R.string.forecasts)
         initAdapterWithList()
-        DaggerWeatherComponent.create().inject(this)
-        WeatherPresenter(this, weatherRepository) // TODO: inject presenter
+        DaggerWeatherComponent.builder()
+                .weatherPresenterModule(WeatherPresenterModule(this))
+                .build()
+                .inject(this)
+        presenter.fetchForecast()
     }
 
     private fun initAdapterWithList() {
@@ -41,11 +44,6 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
             startDailyForecastFragment(it)
         }
         forecastListView.adapter = forecastListAdapter
-    }
-
-    override fun setPresenter(presenter: WeatherMvp.Presenter) { // TODO: remove
-        this.presenter = presenter
-        presenter.fetchForecast()
     }
 
     override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {

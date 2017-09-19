@@ -10,10 +10,13 @@ data class DailyForecast(private val dt: Long, val temp: Temperature,
                          val weather: List<Weather>, val speed: Float,
                          val deg: Int, val clouds: Int,
                          val rain: Float) : Serializable {
+
+    companion object {
+        private val dateFormatter by lazy {
+            DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+        }
+    }
+
     val date: String
         get() = dateFormatter.format(dt * 1000)
-
-    private val dateFormatter by lazy {
-        DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-    }
 }

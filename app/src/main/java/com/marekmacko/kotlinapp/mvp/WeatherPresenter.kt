@@ -1,14 +1,12 @@
 package com.marekmacko.kotlinapp.mvp
 
 import com.marekmacko.kotlinapp.repository.WeatherRepository
+import javax.inject.Inject
 
 
-class WeatherPresenter(private val view: WeatherMvp.View,
-                       private val weatherRepository: WeatherRepository) : WeatherMvp.Presenter {
-
-    init {
-        view.setPresenter(this)
-    }
+class WeatherPresenter @Inject constructor(private val view: WeatherMvp.View,
+                                           private val weatherRepository: WeatherRepository)
+    : WeatherMvp.Presenter {
 
     override fun fetchForecast() = // TODO: add disposable
             weatherRepository.getWeeklyForecast(
