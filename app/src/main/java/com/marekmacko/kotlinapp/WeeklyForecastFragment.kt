@@ -17,32 +17,42 @@ import javax.inject.Inject
 
 class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
 
+    private lateinit var forecastListAdapter: ForecastListAdapter
     private lateinit var presenter: WeatherMvp.Presenter
     @Inject lateinit var weatherRepository: WeatherRepository
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+            inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         init()
-        return inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
     }
 
     private fun init() {
         activity.title = getString(R.string.forecasts)
+        initAdapterWithList()
         DaggerWeatherComponent.create().inject(this)
-        WeatherPresenter(this, weatherRepository)
+        WeatherPresenter(this, weatherRepository) // TODO: inject presenter
     }
 
-    override fun setPresenter(presenter: WeatherMvp.Presenter) {
+    private fun initAdapterWithList() {
+        forecastListAdapter = ForecastListAdapter(null) {
+            startDailyForecastFragment(it)
+        }
+        forecastListView.adapter = forecastListAdapter
+    }
+
+    override fun setPresenter(presenter: WeatherMvp.Presenter) { // TODO: remove
         this.presenter = presenter
         presenter.fetchForecast()
     }
 
     override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        forecastListView.adapter = ForecastAdapter(weeklyForecast) {
-            showDayForecastDialog(it)
-        }
+        forecastListAdapter.setItemsAndNotify(weeklyForecast)
     }
 
-    private fun showDayForecastDialog(dailyForecast: DailyForecast) {
+    private fun startDailyForecastFragment(dailyForecast: DailyForecast) {
         val fragment = DailyForecastFragment.newInstance(dailyForecast)
         fragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, fragment)
