@@ -14,6 +14,11 @@
         <item name="android:paddingStart">5dp</item>
     </style>
 
+    <style name="TextDailyWeather.Label.Big">
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="TextDailyWeather.Param">
         <item name="android:paddingStart">2dp</item>
     </style>
