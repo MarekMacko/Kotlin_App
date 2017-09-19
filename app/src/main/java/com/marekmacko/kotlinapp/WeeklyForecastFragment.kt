@@ -36,7 +36,6 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
                 .weatherPresenterModule(WeatherPresenterModule(this))
                 .build()
                 .inject(this)
-        presenter.fetchForecast()
     }
 
     private fun initAdapterWithList() {
@@ -44,6 +43,19 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
             startDailyForecastFragment(it)
         }
         forecastListView.adapter = forecastListAdapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.fetchForecast()
+    }
+
+    override fun showLoading() {
+        loadingView.show()
+    }
+
+    override fun hideLoading() {
+        loadingView.hide()
     }
 
     override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
@@ -59,4 +71,9 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
     }
 
     override fun showError(message: String) = toast(message)
+
+    override fun onPause() {
+        super.onPause()
+        presenter.cancelFetch()
+    }
 }
