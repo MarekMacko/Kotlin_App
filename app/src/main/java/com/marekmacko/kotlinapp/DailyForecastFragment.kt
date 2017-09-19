@@ -46,22 +46,18 @@ class DailyForecastFragment : Fragment() {
         activity.title = date
     }
 
-    private fun bindViewsWithForecast(dailyForecast: DailyForecast) {
-        with(dailyForecast) {
-            pressureValueView.text = pressure.toString()
-            humidityValueView.text = speed.toString()
-            bindTemperature(temp)
-        }
+    private fun bindViewsWithForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
+        pressureValueView.text = pressure.toString()
+        humidityValueView.text = speed.toString()
+        bindTemperature(temp)
     }
 
-    private fun bindTemperature(temp: Temperature) {
-        with(temp) {
-            tempDayValueView.text = day.toString()
-            tempMorningValueView.text = morn.toString()
-            tempEveningValueView.text = eve.toString()
-            tempNightValueView.text = night.toString()
-            tempMinValueView.text = min.toString()
-            tempMaxValueView.text = max.toString()
-        }
+    private fun bindTemperature(temp: Temperature) = with(temp) {
+        tempDayValueView.text = day.toString()
+        tempMorningValueView.text = morn.toString()
+        tempEveningValueView.text = eve.toString()
+        tempNightValueView.text = night.toString()
+        tempMinValueView.text = min.toString()
+        tempMaxValueView.text = max.toString()
     }
 }
