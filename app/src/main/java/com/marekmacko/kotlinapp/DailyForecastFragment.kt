@@ -58,8 +58,8 @@ class DailyForecastFragment : Fragment() {
 
     private fun bindTemperature(temp: Temperature) = with(temp) {
         tempDayValueView.text = day.toString()
-        tempMorningValueView.text = morn.toString()
-        tempEveningValueView.text = eve.toString()
+        tempMorningValueView.text = morning.toString()
+        tempEveningValueView.text = evening.toString()
         tempNightValueView.text = night.toString()
         tempMinValueView.text = min.toString()
         tempMaxValueView.text = max.toString()

@@ -24,7 +24,7 @@ data class City(val id: Long, val name: String, val coord: Coordinates,
 
 data class DailyForecast(private val dt: Long, val temp: Temperature, val pressure: Float,
                          val humidity: Int, val weather: List<Weather>, val speed: Float,
-                         val deg: Int, val clouds: Int, val rain: Float): Serializable {
+                         val deg: Int, val clouds: Int, val rain: Float) : Serializable {
     val date: String
         get() = dateFormatter.format(dt * 1000)
 }
@@ -32,7 +32,9 @@ data class DailyForecast(private val dt: Long, val temp: Temperature, val pressu
 data class Coordinates(val lon: Float, val lat: Float)
 
 data class Temperature(val day: Float, val min: Float, val max: Float,
-                       val night: Float, val eve: Float, val morn: Float)
+                       val night: Float,
+                       @SerializedName("eve") val evening: Float,
+                       @SerializedName("morn") val morning: Float)
 
 data class Weather(val id: Long, val main: String, val description: String,
                    @SerializedName("icon") private val iconCode: String) {
