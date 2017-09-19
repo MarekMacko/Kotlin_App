@@ -9,5 +9,5 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(NetworkModule::class, RepositoryModule::class))
 interface WeatherComponent {
 
-    fun inject(mainActivity: MainActivity)
+    fun inject(weeklyForecastFragment: WeeklyForecastFragment)
 }

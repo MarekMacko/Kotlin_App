@@ -38,7 +38,12 @@ class DailyForecastFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dailyForecast = getDailyForecastFromArgs()
+        setupTitle(dailyForecast.date)
         bindViewsWithForecast(dailyForecast)
+    }
+
+    private fun setupTitle(date: String) {
+        activity.title = date
     }
 
     private fun bindViewsWithForecast(dailyForecast: DailyForecast) {

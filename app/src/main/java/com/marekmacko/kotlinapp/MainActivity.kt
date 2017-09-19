@@ -2,49 +2,18 @@ package com.marekmacko.kotlinapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.marekmacko.kotlinapp.data.DailyForecast
-import com.marekmacko.kotlinapp.data.WeeklyForecast
-import com.marekmacko.kotlinapp.mvp.WeatherMvp
-import com.marekmacko.kotlinapp.mvp.WeatherPresenter
-import com.marekmacko.kotlinapp.repository.WeatherRepository
-import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.toast
-import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), WeatherMvp.View {
-
-    private lateinit var presenter: WeatherMvp.Presenter
-    @Inject lateinit var weatherRepository: WeatherRepository
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        init()
+        startWeeklyForecastFragment()
     }
 
-    private fun init() {
-        DaggerWeatherComponent.create().inject(this)
-        WeatherPresenter(this, weatherRepository)
-    }
-
-    override fun setPresenter(presenter: WeatherMvp.Presenter) {
-        this.presenter = presenter
-        presenter.fetchForecast()
-    }
-
-    override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        forecastListView.adapter = ForecastAdapter(weeklyForecast) {
-            showDayForecastDialog(it)
-        }
-    }
-
-    private fun showDayForecastDialog(dailyForecast: DailyForecast) {
-        val fragment = DailyForecastFragment.newInstance(dailyForecast)
+    private fun startWeeklyForecastFragment() {
         fragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, fragment)
-                .addToBackStack(null)
+                .replace(R.id.mainContainer, WeeklyForecastFragment())
                 .commit()
     }
-
-    override fun showError(message: String) = toast(message)
 }
