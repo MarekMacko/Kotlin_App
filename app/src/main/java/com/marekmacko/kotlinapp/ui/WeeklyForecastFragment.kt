@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.marekmacko.kotlinapp.DaggerWeatherComponent
 import com.marekmacko.kotlinapp.ForecastListAdapter
 import com.marekmacko.kotlinapp.R
+import com.marekmacko.kotlinapp.api.NetworkModule
 import com.marekmacko.kotlinapp.data.DailyForecast
 import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
@@ -37,6 +38,7 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         activity.title = getString(R.string.forecasts)
         initAdapterWithList()
         DaggerWeatherComponent.builder()
+                .networkModule(NetworkModule(activity))
                 .weatherPresenterModule(WeatherPresenterModule(this))
                 .build()
                 .inject(this)
