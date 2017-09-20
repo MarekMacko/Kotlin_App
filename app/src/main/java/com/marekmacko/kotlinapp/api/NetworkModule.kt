@@ -1,11 +1,9 @@
 package com.marekmacko.kotlinapp.api
 
 import android.content.Context
-import com.marekmacko.kotlinapp.util.Utils
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -29,40 +27,28 @@ internal class NetworkModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit =
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
             Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(getOkHttpClient())
+                    .client(okHttpClient)
                     .baseUrl(WeatherService.BASE_URL)
                     .build()
 
-    // TODO: should be moved to parametrized class or be provided by NetworkModule?
-    private fun getOkHttpClient() =
+    @Provides
+    fun provideOkHttpClient(responseCacheInterceptor: ResponseCacheInterceptor,
+                            offlineCacheInterceptor: OfflineCacheInterceptor): OkHttpClient =
             OkHttpClient.Builder()
-                    .addNetworkInterceptor(getResponseCacheInterceptor())
-                    .addInterceptor(getOfflineResponseCacheInterceptor())
+                    .addNetworkInterceptor(responseCacheInterceptor)
+                    .addInterceptor(offlineCacheInterceptor)
                     .cache(Cache(context.cacheDir, CACHE_SIZE_BYTES))
                     .build()
 
-    // TODO: should be moved to parametrized class?
-    private fun getOfflineResponseCacheInterceptor(): Interceptor = Interceptor {
-        var request = it.request()
-        if (!Utils.isNetworkAvailable(context)) {
-            request = request.newBuilder()
-                    .header("Cache-Control", "public, only-if-cached, max-stale=$CACHE_MAX_STALE_SECONDS")
-                    .build()
-        }
-        it.proceed(request)
-    }
+    @Provides
+    fun provideOfflineCacheInterceptor() = OfflineCacheInterceptor(context, CACHE_MAX_STALE_SECONDS)
 
-    // TODO: should be moved to parametrized class?
-    private fun getResponseCacheInterceptor(): Interceptor = Interceptor {
-        val response = it.proceed(it.request())
-        response.newBuilder()
-                .header("Cache-Control", "public, max-age=$CACHE_MAX_AGE_SECONDS")
-                .build()
-    }
+    @Provides
+    fun provideResponseCacheInterceptor() = ResponseCacheInterceptor(CACHE_MAX_AGE_SECONDS)
 
     @Provides
     @Singleton
