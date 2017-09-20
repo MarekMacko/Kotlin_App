@@ -1,6 +1,5 @@
-package com.marekmacko.kotlinapp
+package com.marekmacko.kotlinapp.mvp
 
-import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import dagger.Module
 import dagger.Provides
 

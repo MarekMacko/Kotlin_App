@@ -1,14 +1,18 @@
-package com.marekmacko.kotlinapp
+package com.marekmacko.kotlinapp.ui
 
 import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.marekmacko.kotlinapp.DaggerWeatherComponent
+import com.marekmacko.kotlinapp.ForecastListAdapter
+import com.marekmacko.kotlinapp.R
 import com.marekmacko.kotlinapp.data.DailyForecast
 import com.marekmacko.kotlinapp.data.WeeklyForecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
+import com.marekmacko.kotlinapp.mvp.WeatherPresenterModule
 import com.marekmacko.kotlinapp.repository.WeatherRepository
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
 import org.jetbrains.anko.toast

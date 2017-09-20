@@ -1,10 +1,11 @@
-package com.marekmacko.kotlinapp
+package com.marekmacko.kotlinapp.ui
 
 import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.marekmacko.kotlinapp.R
 import com.marekmacko.kotlinapp.data.DailyForecast
 import com.marekmacko.kotlinapp.data.Temperature
 import com.marekmacko.kotlinapp.util.loadFromUrl

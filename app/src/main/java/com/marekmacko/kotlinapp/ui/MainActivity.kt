@@ -1,7 +1,8 @@
-package com.marekmacko.kotlinapp
+package com.marekmacko.kotlinapp.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.marekmacko.kotlinapp.R
 
 class MainActivity : AppCompatActivity() {
 
