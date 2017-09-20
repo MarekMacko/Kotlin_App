@@ -12,7 +12,7 @@ interface WeatherService {
     fun getWeeklyForecast(@Query("q") zipCode: String): Observable<WeeklyForecast>
 
     companion object {
-        const val BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/" //TODO: should be there on in NetworkModule?
+        const val BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/"
         private const val REQUEST_PARAMS = "daily?mode=json&units=metric&cnt=7" +
                 "&APPID=15646a06818f61f7b8d7823ca833e1ce"
     }

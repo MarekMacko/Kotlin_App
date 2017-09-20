@@ -33,7 +33,7 @@ class ForecastListAdapter(private var weeklyForecast: WeeklyForecast?,
         : RecyclerView.ViewHolder(view) {
 
         fun bindDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
-            val weather = weather[0] // TODO: API always return one element
+            val weather = weather[0]
             itemView.icon.loadFromUrl(weather.iconUrl)
             itemView.date.text = date
             itemView.description.text = weather.description
