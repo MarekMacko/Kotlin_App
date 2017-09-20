@@ -36,6 +36,7 @@ internal class NetworkModule(private val context: Context) {
                     .build()
 
     @Provides
+    @Singleton
     fun provideOkHttpClient(responseCacheInterceptor: ResponseCacheInterceptor,
                             offlineCacheInterceptor: OfflineCacheInterceptor): OkHttpClient =
             OkHttpClient.Builder()
@@ -45,9 +46,11 @@ internal class NetworkModule(private val context: Context) {
                     .build()
 
     @Provides
+    @Singleton
     fun provideOfflineCacheInterceptor() = OfflineCacheInterceptor(context, CACHE_MAX_STALE_SECONDS)
 
     @Provides
+    @Singleton
     fun provideResponseCacheInterceptor() = ResponseCacheInterceptor(CACHE_MAX_AGE_SECONDS)
 
     @Provides
