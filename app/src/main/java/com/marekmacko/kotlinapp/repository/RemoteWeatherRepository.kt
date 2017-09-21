@@ -2,10 +2,7 @@ package com.marekmacko.kotlinapp.repository
 
 import com.marekmacko.kotlinapp.api.WeatherService
 import com.marekmacko.kotlinapp.data.WeeklyForecast
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Observable
 
 
 class RemoteWeatherRepository(private val weatherService: WeatherService) {
@@ -14,12 +11,6 @@ class RemoteWeatherRepository(private val weatherService: WeatherService) {
         private const val API_ZIP_CODE = "94043"
     }
 
-    fun getWeeklyForecast(onLoad: (WeeklyForecast) -> Unit, onError: (String) -> Unit): Disposable =
+    fun getWeeklyForecast(): Observable<WeeklyForecast> =
             weatherService.getWeeklyForecast(API_ZIP_CODE)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            { onLoad(it) },
-                            { onError(it.message ?: "No message provided") }
-                    )
 }
