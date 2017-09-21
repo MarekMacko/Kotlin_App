@@ -34,26 +34,14 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         init()
     }
 
-    private fun init() {
-        activity.title = getString(R.string.forecasts)
-        initAdapterWithList()
-        DaggerWeatherComponent.builder()
-                .networkModule(NetworkModule(activity))
-                .weatherPresenterModule(WeatherPresenterModule(this))
-                .build()
-                .inject(this)
-    }
-
-    private fun initAdapterWithList() {
-        forecastListAdapter = ForecastListAdapter(null) {
-            startDailyForecastFragment(it)
-        }
-        forecastListView.adapter = forecastListAdapter
-    }
-
     override fun onStart() {
         super.onStart()
         presenter.fetchForecast()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.cancelFetch()
     }
 
     override fun showLoading() {
@@ -65,7 +53,26 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
     }
 
     override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        forecastListAdapter.setItemsAndNotify(weeklyForecast)
+        forecastListAdapter.setItems(weeklyForecast)
+    }
+
+    override fun showError(message: String) = toast(message)
+
+    private fun init() {
+        activity.title = getString(R.string.forecasts)
+        initAdapterWithList()
+        DaggerWeatherComponent.builder()
+                .networkModule(NetworkModule(activity))
+                .weatherPresenterModule(WeatherPresenterModule(this))
+                .build()
+                .inject(this)
+    }
+
+    private fun initAdapterWithList() {
+        forecastListAdapter = ForecastListAdapter {
+            startDailyForecastFragment(it)
+        }
+        forecastListView.adapter = forecastListAdapter
     }
 
     private fun startDailyForecastFragment(dailyForecast: DailyForecast) {
@@ -74,12 +81,5 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
                 .replace(R.id.mainContainer, fragment)
                 .addToBackStack(null)
                 .commit()
-    }
-
-    override fun showError(message: String) = toast(message)
-
-    override fun onPause() {
-        super.onPause()
-        presenter.cancelFetch()
     }
 }
