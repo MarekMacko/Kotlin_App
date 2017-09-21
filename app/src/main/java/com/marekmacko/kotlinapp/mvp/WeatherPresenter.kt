@@ -1,18 +1,32 @@
 package com.marekmacko.kotlinapp.mvp
 
 import com.marekmacko.kotlinapp.repository.WeatherRepository
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 
-class WeatherPresenter(private val view: WeatherMvp.View,
-                       private val weatherRepository: WeatherRepository) : WeatherMvp.Presenter {
+class WeatherPresenter @Inject constructor(private val view: WeatherMvp.View,
+                                           private val weatherRepository: WeatherRepository)
+    : WeatherMvp.Presenter {
 
-    init {
-        view.setPresenter(this)
+    private val compositeDisposable = CompositeDisposable()
+
+    override fun fetchForecast() {
+        view.showLoading()
+        val disposable = weatherRepository.getWeeklyForecast(
+                {
+                    view.hideLoading()
+                    view.updateWeeklyForecast(it)
+                },
+                {
+                    view.hideLoading()
+                    view.showError(it)
+                }
+        )
+        compositeDisposable.add(disposable)
     }
 
-    override fun fetchForecast() = // TODO: add disposable
-            weatherRepository.getWeeklyForecast(
-                    { view.updateWeeklyForecast(it) },
-                    { view.showError(it) }
-            )
+    override fun cancelFetch() {
+        compositeDisposable.clear()
+    }
 }
