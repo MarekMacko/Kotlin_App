@@ -46,13 +46,13 @@ class RemoteWeatherRepositoryTest {
         testObserver.assertNoErrors()
         testObserver.assertValueCount(1)
         testObserver.assertValue { // TODO
-            it[0].description == DataProviderSource.EXPECTED_DESCRIPTION
+            it[0].description == DataProviderSource.DESCRIPTION
         }
         testObserver.assertValue {
-            it[0].minTemperature == DataProviderSource.EXPECTED_MIN_TEMPERATURE
+            it[0].minTemperature == DataProviderSource.MIN_TEMPERATURE
         }
         testObserver.assertValue {
-            it[0].maxTemperature == DataProviderSource.EXPECTED_MAX_TEMPERATURE
+            it[0].maxTemperature == DataProviderSource.MAX_TEMPERATURE
         }
     }
 

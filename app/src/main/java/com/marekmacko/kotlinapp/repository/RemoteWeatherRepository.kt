@@ -1,7 +1,7 @@
 package com.marekmacko.kotlinapp.repository
 
+import com.marekmacko.kotlinapp.ModelMapper
 import com.marekmacko.kotlinapp.api.WeatherService
-import com.marekmacko.kotlinapp.data.response.DailyForecast
 import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,13 +19,6 @@ class RemoteWeatherRepository(private val weatherService: WeatherService) {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map {
-                        it.days.map {
-                            convertResponseDailyForecast(it)
-                        }
+                        ModelMapper.convertResponseToForecastShort(it)
                     }
-
-    private fun convertResponseDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
-        val weather = weather[0]
-        ForecastShort(date, weather.description, temp.min.toInt(), temp.max.toInt(), weather.iconUrl)
-    }
 }
