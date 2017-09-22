@@ -1,7 +1,9 @@
 package com.marekmacko.kotlinapp.repository
 
+import com.marekmacko.kotlinapp.RxImmediateSchedulerRule
 import com.marekmacko.kotlinapp.api.WeatherService
-import com.marekmacko.kotlinapp.data.*
+import com.marekmacko.kotlinapp.data.response.*
+import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
@@ -17,6 +19,10 @@ class RemoteWeatherRepositoryTest {
 
     @Rule
     @JvmField
+    val testSchedulerRule = RxImmediateSchedulerRule()
+
+    @Rule
+    @JvmField
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     @Mock lateinit var weatherService: WeatherService
@@ -29,7 +35,7 @@ class RemoteWeatherRepositoryTest {
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 
         val result = remoteWeatherRepository.getWeeklyForecast()
-        val testObserver = TestObserver<WeeklyForecast>()
+        val testObserver = TestObserver<List<ForecastShort>>()
         result.subscribe(testObserver)
         testObserver.assertComplete()
         testObserver.assertNoErrors()

@@ -1,4 +1,4 @@
-package com.marekmacko.kotlinapp.data
+package com.marekmacko.kotlinapp.data.response
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

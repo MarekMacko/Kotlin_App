@@ -1,4 +1,4 @@
-package com.marekmacko.kotlinapp.data
+package com.marekmacko.kotlinapp.data.response
 
 import java.io.Serializable
 import java.text.DateFormat

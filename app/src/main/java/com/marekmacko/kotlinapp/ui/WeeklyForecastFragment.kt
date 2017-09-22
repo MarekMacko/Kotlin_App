@@ -9,8 +9,7 @@ import com.marekmacko.kotlinapp.DaggerWeatherComponent
 import com.marekmacko.kotlinapp.ForecastListAdapter
 import com.marekmacko.kotlinapp.R
 import com.marekmacko.kotlinapp.api.NetworkModule
-import com.marekmacko.kotlinapp.data.DailyForecast
-import com.marekmacko.kotlinapp.data.WeeklyForecast
+import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import com.marekmacko.kotlinapp.mvp.WeatherPresenterModule
@@ -52,8 +51,8 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         loadingView.hide()
     }
 
-    override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        forecastListAdapter.setItems(weeklyForecast)
+    override fun updateWeeklyForecast(weeklyForecast: List<ForecastShort>) {
+        forecastListAdapter.setWeeklyForecast(weeklyForecast)
     }
 
     override fun showError(message: String) = toast(message)
@@ -75,8 +74,8 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         forecastListView.adapter = forecastListAdapter
     }
 
-    private fun startDailyForecastFragment(dailyForecast: DailyForecast) {
-        val fragment = DailyForecastFragment.newInstance(dailyForecast)
+    private fun startDailyForecastFragment(forecast: ForecastShort) {
+        val fragment = DailyForecastFragment.newInstance(forecast)
         fragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, fragment)
                 .addToBackStack(null)

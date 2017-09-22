@@ -1,5 +1,6 @@
 package com.marekmacko.kotlinapp.data
 
+import com.marekmacko.kotlinapp.data.response.Weather
 import org.junit.Test
 
 import org.junit.Assert.*
