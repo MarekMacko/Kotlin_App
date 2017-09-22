@@ -30,16 +30,29 @@ class RemoteWeatherRepositoryTest {
     @InjectMocks lateinit var remoteWeatherRepository: RemoteWeatherRepository
 
     @Test
-    fun getWeeklyForecast() {
+    fun getWeeklyForecastReturnData() {
         val weeklyForecast = getFakeData()
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 
-        val result = remoteWeatherRepository.getWeeklyForecast()
+        val observableResult = remoteWeatherRepository.getWeeklyForecast()
         val testObserver = TestObserver<List<ForecastShort>>()
-        result.subscribe(testObserver)
+        observableResult.subscribe(testObserver)
         testObserver.assertComplete()
         testObserver.assertNoErrors()
         testObserver.assertValueCount(1)
+
+        // TODO: assert response
+    }
+
+    @Test
+    fun getWeeklyForecastReturnError() {
+        val error = Throwable()
+        whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.error(error))
+
+        val observableResult = remoteWeatherRepository.getWeeklyForecast()
+        val testObserver = TestObserver<List<ForecastShort>>()
+        observableResult.subscribe(testObserver)
+        testObserver.assertError(error)
     }
 
     private fun getFakeData(): WeeklyForecast {
