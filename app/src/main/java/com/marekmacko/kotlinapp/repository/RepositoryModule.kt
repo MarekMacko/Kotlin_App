@@ -11,11 +11,6 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRemoteWeatherRepository(weatherService: WeatherService): RemoteWeatherRepository =
-            RemoteWeatherRepository(weatherService)
-
-    @Provides
-    @Singleton
-    fun provideWeatherRepository(remoteWeatherRepository: RemoteWeatherRepository): WeatherRepository =
-            WeatherRepository(remoteWeatherRepository)
+    fun provideWeatherRepository(weatherService: WeatherService): WeatherRepository =
+            WeatherRepository(weatherService)
 }
