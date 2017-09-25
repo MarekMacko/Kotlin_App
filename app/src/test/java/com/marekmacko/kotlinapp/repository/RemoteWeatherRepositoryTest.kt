@@ -49,8 +49,7 @@ class RemoteWeatherRepositoryTest {
     }
 
     @Test
-    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(DataProviderSource::class))
-    fun getWeeklyForecastReturnError(forecasts: List<ForecastShort>) {
+    fun getWeeklyForecastReturnError() {
         val errorMessage = "error"
         val error = Throwable(errorMessage)
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.error(error))
@@ -58,6 +57,6 @@ class RemoteWeatherRepositoryTest {
 
         weatherRepository.getWeeklyForecast(onLoadMock, onErrorMock)
 
-        verify(onErrorMock, times(1)).invoke(any())
+        verify(onErrorMock, times(1)).invoke(errorMessage)
     }
 }
