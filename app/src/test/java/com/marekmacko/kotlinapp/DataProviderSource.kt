@@ -25,8 +25,7 @@ class DataProviderSource {
             return arrayOf(arrayOf<Any>(weeklyForecast))
         }
 
-        // TODO: change to private
-        fun getTemperature() =
+        private fun getTemperature() =
                 Temperature(12f, MIN_TEMPERATURE.toFloat(),
                         MAX_TEMPERATURE.toFloat(), 12f, 12f, 12f)
 
