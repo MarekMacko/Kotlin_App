@@ -24,6 +24,13 @@ android {
             testCoverageEnabled true
         }
     }
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
 }
 
 dependencies {
