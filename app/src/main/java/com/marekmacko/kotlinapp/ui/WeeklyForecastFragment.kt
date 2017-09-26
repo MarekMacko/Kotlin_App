@@ -13,7 +13,6 @@ import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import com.marekmacko.kotlinapp.mvp.WeatherPresenterModule
-import com.marekmacko.kotlinapp.repository.WeatherRepository
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
 
     @Inject lateinit var presenter: WeatherPresenter
-    @Inject lateinit var weatherRepository: WeatherRepository
     private lateinit var forecastListAdapter: ForecastListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
