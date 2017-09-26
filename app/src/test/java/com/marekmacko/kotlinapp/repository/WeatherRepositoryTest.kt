@@ -18,7 +18,7 @@ import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
 @RunWith(DataProviderRunner::class)
-class RemoteWeatherRepositoryTest {
+class WeatherRepositoryTest {
 
     @Rule
     @JvmField
