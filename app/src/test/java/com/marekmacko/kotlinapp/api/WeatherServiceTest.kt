@@ -2,6 +2,7 @@ package com.marekmacko.kotlinapp.api
 
 import com.marekmacko.kotlinapp.DataProviderSource
 import com.marekmacko.kotlinapp.data.response.WeeklyForecast
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.tngtech.java.junit.dataprovider.DataProviderRunner
@@ -19,10 +20,9 @@ class WeatherServiceTest {
     @Test
     @UseDataProvider("getWeeklyForecast", location = arrayOf(DataProviderSource::class))
     fun getWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        val zipCode = "123"
-        whenever(weatherService.getWeeklyForecast(zipCode)).thenReturn(Observable.just(weeklyForecast))
+        whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 
-        val observableResult = weatherService.getWeeklyForecast(zipCode)
+        val observableResult = weatherService.getWeeklyForecast("")
         val testObserver = TestObserver<WeeklyForecast>()
         observableResult.subscribe(testObserver)
 
