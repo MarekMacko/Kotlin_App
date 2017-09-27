@@ -37,7 +37,7 @@ class WeatherPresenterTest {
 
     @Test
     @UseDataProvider("getWeeklyForecastShort", location = arrayOf(DataProviderSource::class))
-    fun showLoadingIsInvokedOnFetchForecast(forecastList: List<ForecastShort>) {
+    fun showLoadingIsCalledOnFetchForecast(forecastList: List<ForecastShort>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
         weatherPresenter.fetchForecast()
@@ -47,7 +47,7 @@ class WeatherPresenterTest {
 
     @Test
     @UseDataProvider("getWeeklyForecastShort", location = arrayOf(DataProviderSource::class))
-    fun updateWeeklyForecastIsInvokeWhenDataReturns(forecastList: List<ForecastShort>) {
+    fun updateWeeklyForecastIsCalledWhenDataReturns(forecastList: List<ForecastShort>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
         weatherPresenter.fetchForecast()
@@ -56,7 +56,7 @@ class WeatherPresenterTest {
     }
 
     @Test
-    fun showErrorIsInvokedOnError() {
+    fun showErrorIsCalledOnError() {
         val errorMessage = "Not found"
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.error(Throwable(errorMessage)))
 
@@ -66,7 +66,7 @@ class WeatherPresenterTest {
     }
 
     @Test
-    fun hideLoadingIsInvokeOnComplete() {
+    fun hideLoadingIsCalledOnComplete() {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.empty())
 
         weatherPresenter.fetchForecast()

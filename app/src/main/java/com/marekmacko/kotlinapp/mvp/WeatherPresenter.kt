@@ -21,7 +21,10 @@ class WeatherPresenter @Inject constructor(private val view: WeatherMvp.View,
                 .doOnComplete { view.hideLoading() }
                 .subscribe(
                         { view.updateWeeklyForecast(it) },
-                        { view.showError(it.message ?: "No message provided") }
+                        {
+                            view.showError(it.message ?: "No message provided")
+                            view.hideLoading()
+                        }
                 )
         compositeDisposable.add(disposable)
     }
