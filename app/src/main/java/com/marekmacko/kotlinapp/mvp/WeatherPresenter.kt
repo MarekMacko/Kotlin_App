@@ -1,7 +1,9 @@
 package com.marekmacko.kotlinapp.mvp
 
 import com.marekmacko.kotlinapp.repository.WeatherRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
@@ -13,16 +15,14 @@ class WeatherPresenter @Inject constructor(private val view: WeatherMvp.View,
 
     override fun fetchForecast() {
         view.showLoading()
-        val disposable = weatherRepository.getWeeklyForecast(
-                {
-                    view.hideLoading()
-                    view.updateWeeklyForecast(it)
-                },
-                {
-                    view.hideLoading()
-                    view.showError(it)
-                }
-        )
+        val disposable = weatherRepository.getWeeklyForecast()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doOnComplete { view.hideLoading() }
+                .subscribe(
+                        { view.updateWeeklyForecast(it) },
+                        { view.showError(it.message ?: "No message provided") }
+                )
         compositeDisposable.add(disposable)
     }
 
