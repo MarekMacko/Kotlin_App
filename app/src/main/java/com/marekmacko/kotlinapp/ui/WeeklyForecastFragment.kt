@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marekmacko.kotlinapp.DaggerWeatherComponent
+import com.marekmacko.kotlinapp.App
 import com.marekmacko.kotlinapp.ForecastListAdapter
 import com.marekmacko.kotlinapp.R
-import com.marekmacko.kotlinapp.api.NetworkModule
+import com.marekmacko.kotlinapp.WeeklyForecastModule
 import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
-import com.marekmacko.kotlinapp.mvp.WeatherPresenterModule
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -58,9 +57,9 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
     private fun init() {
         activity.title = getString(R.string.forecasts)
         initAdapterWithList()
-        DaggerWeatherComponent.builder()
-                .networkModule(NetworkModule(activity))
-                .weatherPresenterModule(WeatherPresenterModule(this))
+        val app = activity.application as App
+        app.component.weeklyForecastComponentBuilder()
+                .weeklyForecastModule(WeeklyForecastModule(this))
                 .build()
                 .inject(this)
     }

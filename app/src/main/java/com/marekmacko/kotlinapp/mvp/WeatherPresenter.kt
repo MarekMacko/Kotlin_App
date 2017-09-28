@@ -4,12 +4,10 @@ import com.marekmacko.kotlinapp.repository.WeatherRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 
-class WeatherPresenter @Inject constructor(private val view: WeatherMvp.View,
-                                           private val weatherRepository: WeatherRepository)
-    : WeatherMvp.Presenter {
+class WeatherPresenter(private val view: WeatherMvp.View,
+                       private val weatherRepository: WeatherRepository) : WeatherMvp.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
 
