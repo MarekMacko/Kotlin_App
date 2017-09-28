@@ -11,6 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 
 @RunWith(DataProviderRunner::class)
 class WeatherServiceTest {
@@ -22,13 +23,13 @@ class WeatherServiceTest {
     fun getWeeklyForecast(weeklyForecast: WeeklyForecast) {
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 
-        val observableResult = weatherService.getWeeklyForecast("")
+        val observableResult = weatherService.getWeeklyForecast(Mockito.anyString())
         val testObserver = TestObserver<WeeklyForecast>()
         observableResult.subscribe(testObserver)
 
         testObserver.assertComplete()
         testObserver.assertNoErrors()
         testObserver.assertValueCount(1)
-        testObserver.assertValueAt(0, weeklyForecast)
+        testObserver.assertValueAt(0, { it == weeklyForecast })
     }
 }
