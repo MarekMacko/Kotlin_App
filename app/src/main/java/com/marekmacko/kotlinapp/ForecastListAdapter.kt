@@ -35,8 +35,8 @@ class ForecastListAdapter(private val itemClick: (Forecast) -> Unit)
         fun bindForecast(forecast: Forecast) = with(forecast) {
             itemView.icon.loadFromUrl(iconUrl)
             itemView.description.text = description
-            itemView.maxTemperature.text = "$maxTemperature"
-            itemView.minTemperature.text = "$minTemperature"
+            itemView.maxTemperature.text = "${temperature.max}"
+            itemView.minTemperature.text = "${temperature.min}"
             itemView.date.text = date
             itemView.setOnClickListener { itemClick(this) }
         }

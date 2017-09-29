@@ -4,5 +4,5 @@ import java.io.Serializable
 
 
 data class Forecast(val date: String, val description: String,
-                    val minTemperature: Int, val maxTemperature: Int,
-                    val iconUrl: String): Serializable
+                    val temperature: Temperature, val humidity: Int,
+                    val pressure:Float, val iconUrl: String): Serializable

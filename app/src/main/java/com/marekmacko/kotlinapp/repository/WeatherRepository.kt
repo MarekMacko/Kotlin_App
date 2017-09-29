@@ -1,6 +1,6 @@
 package com.marekmacko.kotlinapp.repository
 
-import com.marekmacko.kotlinapp.ModelMapper
+import com.marekmacko.kotlinapp.util.ModelMapper
 import com.marekmacko.kotlinapp.api.WeatherService
 import com.marekmacko.kotlinapp.data.ui.Forecast
 import io.reactivex.Observable

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.marekmacko.kotlinapp.R
 import com.marekmacko.kotlinapp.data.ui.Forecast
-import com.marekmacko.kotlinapp.data.response.Temperature
+import com.marekmacko.kotlinapp.data.ui.Temperature
 import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_daily_forecast.*
 
@@ -43,19 +43,18 @@ class DailyForecastFragment : Fragment() {
         activity.title = date
     }
 
-    // TODO: make different model
     private fun bindViewsWithForecast(forecast: Forecast) = with(forecast) {
         iconView.loadFromUrl(iconUrl)
         descriptionView.text = description
-        pressureValueView.text = ""
-        humidityValueView.text = ""
-//        bindTemperature(temp)
+        pressureValueView.text = forecast.pressure.toString()
+        humidityValueView.text = forecast.humidity.toString()
+        bindTemperature(temperature)
     }
 
-    private fun bindTemperature(temp: Temperature) = with(temp) {
+    private fun bindTemperature(temperature: Temperature) = with(temperature) {
         tempDayValueView.text = day.toString()
-        tempMorningValueView.text = morn.toString()
-        tempEveningValueView.text = eve.toString()
+        tempMorningValueView.text = morning.toString()
+        tempEveningValueView.text = evening.toString()
         tempNightValueView.text = night.toString()
         tempMinValueView.text = min.toString()
         tempMaxValueView.text = max.toString()

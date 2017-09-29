@@ -1,8 +1,9 @@
-package com.marekmacko.kotlinapp
+package com.marekmacko.kotlinapp.util
 
 import com.marekmacko.kotlinapp.data.response.DailyForecast
 import com.marekmacko.kotlinapp.data.response.WeeklyForecast
 import com.marekmacko.kotlinapp.data.ui.Forecast
+import com.marekmacko.kotlinapp.data.ui.Temperature
 
 
 class ModelMapper {
@@ -19,7 +20,10 @@ class ModelMapper {
 
         private fun convertDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0]
-            Forecast(date, weather.description, temp.min.toInt(), temp.max.toInt(), weather.iconUrl)
+            with(temp) {
+                val temperature = Temperature(max, min, day, night, eve, morn)
+                Forecast(date, weather.description, temperature, humidity, pressure, weather.iconUrl)
+            }
         }
     }
 }
