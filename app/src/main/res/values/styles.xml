@@ -23,4 +23,9 @@
         <item name="android:paddingStart">2dp</item>
     </style>
 
+    <style name="TextError">
+        <item name="android:textColor">@color/colorTextError</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

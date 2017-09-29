@@ -10,4 +10,5 @@
     <string name="min">Min</string>
     <string name="max">Max</string>
     <string name="forecasts">Forecasts</string>
+    <string name="fetch_weekly_forecast_error">Check internet connection and retry</string>
 </resources>

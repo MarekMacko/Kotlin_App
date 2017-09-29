@@ -13,7 +13,6 @@ import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
@@ -41,27 +40,36 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
     }
 
     override fun showLoading() {
-        loadingView.show()
+        loadingView.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        loadingView.hide()
+        loadingView.visibility = View.INVISIBLE
     }
 
     override fun updateWeeklyForecast(weeklyForecast: List<ForecastShort>) {
         forecastListAdapter.setWeeklyForecast(weeklyForecast)
     }
 
-    override fun showError(message: String) = toast(message)
+    override fun showError() {
+        errorView.visibility = View.VISIBLE
+        refreshIconView.visibility = View.VISIBLE
+    }
+
+    override fun hideError() {
+        errorView.visibility = View.INVISIBLE
+        refreshIconView.visibility = View.INVISIBLE
+    }
 
     private fun init() {
         activity.title = getString(R.string.forecasts)
         initAdapterWithList()
-        val app = activity.application as App
-        app.component.weeklyForecastComponentBuilder()
-                .weeklyForecastModule(WeeklyForecastModule(this))
-                .build()
-                .inject(this)
+        initClickListeners()
+        initInjections()
+    }
+
+    private fun initClickListeners() {
+        refreshIconView.setOnClickListener { presenter.fetchForecast() }
     }
 
     private fun initAdapterWithList() {
@@ -69,6 +77,14 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
             startDailyForecastFragment(it)
         }
         forecastListView.adapter = forecastListAdapter
+    }
+
+    private fun initInjections() {
+        val app = activity.application as App
+        app.component.weeklyForecastComponentBuilder()
+                .weeklyForecastModule(WeeklyForecastModule(this))
+                .build()
+                .inject(this)
     }
 
     private fun startDailyForecastFragment(forecast: ForecastShort) {

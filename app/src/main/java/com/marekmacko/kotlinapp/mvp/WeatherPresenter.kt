@@ -12,6 +12,7 @@ class WeatherPresenter(private val view: WeatherMvp.View,
     private val compositeDisposable = CompositeDisposable()
 
     override fun fetchForecast() {
+        view.hideError()
         view.showLoading()
         val disposable = weatherRepository.getWeeklyForecast()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -20,7 +21,7 @@ class WeatherPresenter(private val view: WeatherMvp.View,
                 .subscribe(
                         { view.updateWeeklyForecast(it) },
                         {
-                            view.showError(it.message ?: "No message provided")
+                            view.showError()
                             view.hideLoading()
                         }
                 )

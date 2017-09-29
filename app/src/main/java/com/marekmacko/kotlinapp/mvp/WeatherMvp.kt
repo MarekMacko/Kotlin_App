@@ -12,7 +12,9 @@ interface WeatherMvp {
 
         fun updateWeeklyForecast(weeklyForecast: List<ForecastShort>)
 
-        fun showError(message: String)
+        fun showError()
+
+        fun hideError()
     }
 
     interface Presenter {
