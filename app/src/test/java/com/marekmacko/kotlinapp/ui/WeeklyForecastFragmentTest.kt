@@ -1,33 +1,27 @@
 package com.marekmacko.kotlinapp.ui
 
-import com.marekmacko.kotlinapp.App
-import com.marekmacko.kotlinapp.AppComponent
-import com.marekmacko.kotlinapp.AppModule
 import com.marekmacko.kotlinapp.BuildConfig
+import com.marekmacko.kotlinapp.DataProviderSource
+import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.getDaggerMockRule
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import com.nhaarman.mockito_kotlin.doAnswer
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import it.cosenonjaviste.daggermock.DaggerMock
-import org.junit.Assert.assertNotNull
+import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class)
 class WeeklyForecastFragmentTest {
 
-    @get:Rule
-    val rule = DaggerMock.rule<AppComponent>(AppModule(getApp())) {
-        set { getApp().component = it }
-    }
-
-    private fun getApp() = RuntimeEnvironment.application as App
+    @get:Rule val daggerMockRule = getDaggerMockRule()
 
     private lateinit var weeklyForecastFragment: WeeklyForecastFragment
     private val presenter: WeatherPresenter = mock()
@@ -35,12 +29,19 @@ class WeeklyForecastFragmentTest {
     @Test
     fun dataIsSetup() {
         doAnswer {
-            assertNotNull(weeklyForecastFragment)
+            weeklyForecastFragment.updateWeeklyForecast(getWeeklyForecastShort())
         }.whenever(presenter).fetchForecast()
 
-        weeklyForecastFragment = Robolectric.buildFragment(WeeklyForecastFragment::class.java)
-                .create().start().resume().visible().get()
+        val controller = Robolectric.buildFragment(WeeklyForecastFragment::class.java)
+        weeklyForecastFragment = controller.get()
+        controller.create().start()
 
-        assertNotNull(weeklyForecastFragment)
+        assertEquals(weeklyForecastFragment.forecastListView.adapter.itemCount, 1)
+    }
+
+    private fun getWeeklyForecastShort(): List<ForecastShort> {
+        val forecastShort = ForecastShort(DataProviderSource.DATE, DataProviderSource.DESCRIPTION,
+                DataProviderSource.MIN_TEMPERATURE, DataProviderSource.MAX_TEMPERATURE, DataProviderSource.ICON_URL)
+        return (listOf(forecastShort))
     }
 }
