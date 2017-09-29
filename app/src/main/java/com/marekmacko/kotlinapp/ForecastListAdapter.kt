@@ -4,14 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.item_forecast.view.*
 
-class ForecastListAdapter(private val itemClick: (ForecastShort) -> Unit)
+class ForecastListAdapter(private val itemClick: (Forecast) -> Unit)
     : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
 
-    private var weeklyForecast: List<ForecastShort>? = null
+    private var weeklyForecast: List<Forecast>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,15 +24,15 @@ class ForecastListAdapter(private val itemClick: (ForecastShort) -> Unit)
 
     override fun getItemCount(): Int = weeklyForecast?.size ?: 0
 
-    fun setWeeklyForecast(weeklyForecast: List<ForecastShort>) {
+    fun setWeeklyForecast(weeklyForecast: List<Forecast>) {
         this.weeklyForecast = weeklyForecast
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(view: View, private val itemClick: (ForecastShort) -> Unit)
+    inner class ViewHolder(view: View, private val itemClick: (Forecast) -> Unit)
         : RecyclerView.ViewHolder(view) {
 
-        fun bindForecast(forecast: ForecastShort) = with(forecast) {
+        fun bindForecast(forecast: Forecast) = with(forecast) {
             itemView.icon.loadFromUrl(iconUrl)
             itemView.description.text = description
             itemView.maxTemperature.text = "$maxTemperature"

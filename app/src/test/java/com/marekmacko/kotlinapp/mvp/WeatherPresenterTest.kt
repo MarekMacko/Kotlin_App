@@ -2,7 +2,7 @@ package com.marekmacko.kotlinapp.mvp
 
 import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.RxImmediateSchedulerRule
-import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.repository.WeatherRepository
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
@@ -37,7 +37,7 @@ class WeatherPresenterTest {
 
     @Test
     @UseDataProvider("getWeeklyForecastShort", location = arrayOf(MockData::class))
-    fun showLoadingIsCalledOnFetchForecast(forecastList: List<ForecastShort>) {
+    fun showLoadingIsCalledOnFetchForecast(forecastList: List<Forecast>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
         weatherPresenter.fetchForecast()
@@ -47,7 +47,7 @@ class WeatherPresenterTest {
 
     @Test
     @UseDataProvider("getWeeklyForecastShort", location = arrayOf(MockData::class))
-    fun updateWeeklyForecastIsCalledWhenDataReturns(forecastList: List<ForecastShort>) {
+    fun updateWeeklyForecastIsCalledWhenDataReturns(forecastList: List<Forecast>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
         weatherPresenter.fetchForecast()

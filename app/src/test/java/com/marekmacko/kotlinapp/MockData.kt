@@ -1,7 +1,7 @@
 package com.marekmacko.kotlinapp
 
 import com.marekmacko.kotlinapp.data.response.*
-import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.tngtech.java.junit.dataprovider.DataProvider
 
 
@@ -38,6 +38,6 @@ class MockData {
 
         @JvmStatic
         fun getForecastShort() =
-                ForecastShort(DATE, DESCRIPTION, MIN_TEMPERATURE, MAX_TEMPERATURE, ICON_URL)
+                Forecast(DATE, DESCRIPTION, MIN_TEMPERATURE, MAX_TEMPERATURE, ICON_URL)
     }
 }

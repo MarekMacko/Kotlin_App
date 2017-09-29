@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.marekmacko.kotlinapp.R
-import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.data.response.Temperature
 import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_daily_forecast.*
@@ -17,9 +17,9 @@ class DailyForecastFragment : Fragment() {
     companion object {
         private const val DAILY_FORECAST_KEY = "daily_forecast_key"
 
-        fun newInstance(forecastShort: ForecastShort): DailyForecastFragment {
+        fun newInstance(forecast: Forecast): DailyForecastFragment {
             val args = Bundle()
-            args.putSerializable(DAILY_FORECAST_KEY, forecastShort)
+            args.putSerializable(DAILY_FORECAST_KEY, forecast)
             val dialog = DailyForecastFragment()
             dialog.arguments = args
             return dialog
@@ -36,15 +36,15 @@ class DailyForecastFragment : Fragment() {
         bindViewsWithForecast(forecast)
     }
 
-    private fun getForecastFromArgs(): ForecastShort =
-            arguments.getSerializable(DAILY_FORECAST_KEY) as ForecastShort
+    private fun getForecastFromArgs(): Forecast =
+            arguments.getSerializable(DAILY_FORECAST_KEY) as Forecast
 
     private fun setupTitle(date: String) {
         activity.title = date
     }
 
     // TODO: make different model
-    private fun bindViewsWithForecast(forecast: ForecastShort) = with(forecast) {
+    private fun bindViewsWithForecast(forecast: Forecast) = with(forecast) {
         iconView.loadFromUrl(iconUrl)
         descriptionView.text = description
         pressureValueView.text = ""
@@ -54,8 +54,8 @@ class DailyForecastFragment : Fragment() {
 
     private fun bindTemperature(temp: Temperature) = with(temp) {
         tempDayValueView.text = day.toString()
-        tempMorningValueView.text = morning.toString()
-        tempEveningValueView.text = evening.toString()
+        tempMorningValueView.text = morn.toString()
+        tempEveningValueView.text = eve.toString()
         tempNightValueView.text = night.toString()
         tempMinValueView.text = min.toString()
         tempMaxValueView.text = max.toString()

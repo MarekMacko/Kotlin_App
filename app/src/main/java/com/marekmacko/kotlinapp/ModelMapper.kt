@@ -2,15 +2,15 @@ package com.marekmacko.kotlinapp
 
 import com.marekmacko.kotlinapp.data.response.DailyForecast
 import com.marekmacko.kotlinapp.data.response.WeeklyForecast
-import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.data.ui.Forecast
 
 
 class ModelMapper {
 
     companion object {
 
-        fun convertResponseToForecastShort(weeklyForecast: WeeklyForecast): List<ForecastShort> {
-            val forecastsShort = ArrayList<ForecastShort>() // TODO: find better solution
+        fun convertResponseToForecastShort(weeklyForecast: WeeklyForecast): List<Forecast> {
+            val forecastsShort = ArrayList<Forecast>() // TODO: find better solution
             weeklyForecast.days.forEach {
                 forecastsShort.add(convertDailyForecast(it))
             }
@@ -19,7 +19,7 @@ class ModelMapper {
 
         private fun convertDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0]
-            ForecastShort(date, weather.description, temp.min.toInt(), temp.max.toInt(), weather.iconUrl)
+            Forecast(date, weather.description, temp.min.toInt(), temp.max.toInt(), weather.iconUrl)
         }
     }
 }

@@ -9,7 +9,7 @@ import com.marekmacko.kotlinapp.App
 import com.marekmacko.kotlinapp.ForecastListAdapter
 import com.marekmacko.kotlinapp.R
 import com.marekmacko.kotlinapp.WeeklyForecastModule
-import com.marekmacko.kotlinapp.data.ui.ForecastShort
+import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
@@ -47,7 +47,7 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         loadingView.visibility = View.INVISIBLE
     }
 
-    override fun updateWeeklyForecast(weeklyForecast: List<ForecastShort>) {
+    override fun updateWeeklyForecast(weeklyForecast: List<Forecast>) {
         forecastListAdapter.setWeeklyForecast(weeklyForecast)
     }
 
@@ -87,7 +87,7 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
                 .inject(this)
     }
 
-    private fun startDailyForecastFragment(forecast: ForecastShort) {
+    private fun startDailyForecastFragment(forecast: Forecast) {
         val fragment = DailyForecastFragment.newInstance(forecast)
         fragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, fragment)
