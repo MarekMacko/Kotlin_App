@@ -12,7 +12,7 @@ class MockData {
         const val DESCRIPTION = "little rain"
         const val MIN_TEMPERATURE = 10
         const val MAX_TEMPERATURE = 20
-        const val ICON_URL = ""
+        const val ICON_URL = "url"
 
         @DataProvider
         @JvmStatic

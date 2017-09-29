@@ -6,9 +6,7 @@ import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.getDaggerMockRule
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
-import com.nhaarman.mockito_kotlin.doAnswer
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -84,6 +82,13 @@ class WeeklyForecastFragmentTest {
     }
 
     @Test
+    fun fetchIsCanceledInOnPause() {
+        controller.create().start().resume().visible().pause().stop().destroy()
+
+        verify(presenter, times(1)).cancelFetch()
+    }
+
+    @Test
     fun dataIsSetup() {
         doAnswer {
             weeklyForecastFragment.updateWeeklyForecast(getWeeklyForecastShort())
@@ -92,6 +97,17 @@ class WeeklyForecastFragmentTest {
         controller.create().start()
 
         assertEquals(weeklyForecastFragment.forecastListView.adapter.itemCount, 1)
+    }
+
+    @Test
+    fun clickOnForecastStartsNewFragment() {
+        doAnswer {
+            weeklyForecastFragment.updateWeeklyForecast(getWeeklyForecastShort())
+            weeklyForecastFragment.forecastListView.measure(0, 0)
+            weeklyForecastFragment.forecastListView.layout(0, 0, 100, 10000)
+        }.whenever(presenter).fetchForecast()
+
+        controller.create().start().visible()
     }
 
     private fun getWeeklyForecastShort(): List<ForecastShort> {
