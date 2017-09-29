@@ -16,7 +16,7 @@ class MockData {
 
         @DataProvider
         @JvmStatic
-        fun getWeeklyForecast(): Array<Array<Any>> {
+        fun getWeeklyForecastResponse(): Array<Array<Any>> {
             val coordinates = Coordinates(12f, 23f)
             val city = City(1, "", coordinates, "Poland", 345)
             val weather = listOf(Weather(1, "Rain", DESCRIPTION, "10d"))
@@ -31,13 +31,12 @@ class MockData {
 
         @DataProvider
         @JvmStatic
-        fun getWeeklyForecastShort(): Array<Array<Any>> {
-            val forecastShort = getForecastShort()
+        fun getWeeklyForecast(): Array<Array<Any>> {
+            val forecastShort = getForecast()
             return arrayOf(arrayOf<Any>(listOf(forecastShort)))
         }
 
         @JvmStatic
-        fun getForecastShort() =
-                Forecast(DATE, DESCRIPTION, MIN_TEMPERATURE, MAX_TEMPERATURE, ICON_URL)
+        fun getForecast() = Forecast(DATE, DESCRIPTION, MIN_TEMPERATURE, MAX_TEMPERATURE, ICON_URL)
     }
 }

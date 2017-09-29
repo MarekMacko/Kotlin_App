@@ -30,7 +30,7 @@ class WeatherRepositoryTest {
     lateinit var weatherRepository: WeatherRepository
 
     @Test
-    @UseDataProvider("getWeeklyForecast", location = arrayOf(MockData::class))
+    @UseDataProvider("getWeeklyForecastResponse", location = arrayOf(MockData::class))
     fun completeIsCalledOnDataReturn(weeklyForecast: WeeklyForecast) {
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 

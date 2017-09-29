@@ -15,7 +15,7 @@ class DailyForecastFragmentTest {
 
      @Test
     fun titleIsSetup() {
-        val forecast = MockData.getForecastShort()
+        val forecast = MockData.getForecast()
         val fragment = DailyForecastFragment.newInstance(forecast)
         FragmentTestUtil.startFragment(fragment)
         assertEquals(forecast.date, fragment.activity.title)

@@ -19,7 +19,7 @@ class WeatherServiceTest {
     private val weatherService: WeatherService = mock()
 
     @Test
-    @UseDataProvider("getWeeklyForecast", location = arrayOf(MockData::class))
+    @UseDataProvider("getWeeklyForecastResponse", location = arrayOf(MockData::class))
     fun getWeeklyForecast(weeklyForecast: WeeklyForecast) {
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 

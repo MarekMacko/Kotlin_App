@@ -36,7 +36,7 @@ class WeatherPresenterTest {
     lateinit var weatherPresenter: WeatherPresenter
 
     @Test
-    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(MockData::class))
+    @UseDataProvider("getWeeklyForecast", location = arrayOf(MockData::class))
     fun showLoadingIsCalledOnFetchForecast(forecastList: List<Forecast>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
@@ -46,7 +46,7 @@ class WeatherPresenterTest {
     }
 
     @Test
-    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(MockData::class))
+    @UseDataProvider("getWeeklyForecast", location = arrayOf(MockData::class))
     fun updateWeeklyForecastIsCalledWhenDataReturns(forecastList: List<Forecast>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
