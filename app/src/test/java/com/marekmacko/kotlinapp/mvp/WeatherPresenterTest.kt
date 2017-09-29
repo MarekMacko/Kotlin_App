@@ -62,7 +62,7 @@ class WeatherPresenterTest {
 
         weatherPresenter.fetchForecast()
 
-        verify(view, times(1)).showError(errorMessage)
+        verify(view, times(1)).showError()
     }
 
     @Test
