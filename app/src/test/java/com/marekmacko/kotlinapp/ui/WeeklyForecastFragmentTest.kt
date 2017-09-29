@@ -1,7 +1,7 @@
 package com.marekmacko.kotlinapp.ui
 
 import com.marekmacko.kotlinapp.BuildConfig
-import com.marekmacko.kotlinapp.DataProviderSource
+import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.getDaggerMockRule
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
@@ -40,8 +40,8 @@ class WeeklyForecastFragmentTest {
     }
 
     private fun getWeeklyForecastShort(): List<ForecastShort> {
-        val forecastShort = ForecastShort(DataProviderSource.DATE, DataProviderSource.DESCRIPTION,
-                DataProviderSource.MIN_TEMPERATURE, DataProviderSource.MAX_TEMPERATURE, DataProviderSource.ICON_URL)
+        val forecastShort = ForecastShort(MockData.DATE, MockData.DESCRIPTION,
+                MockData.MIN_TEMPERATURE, MockData.MAX_TEMPERATURE, MockData.ICON_URL)
         return (listOf(forecastShort))
     }
 }

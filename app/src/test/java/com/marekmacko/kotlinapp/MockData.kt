@@ -5,7 +5,7 @@ import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.tngtech.java.junit.dataprovider.DataProvider
 
 
-class DataProviderSource {
+class MockData {
 
     companion object {
         const val DATE = ""

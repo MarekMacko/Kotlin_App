@@ -1,6 +1,6 @@
 package com.marekmacko.kotlinapp.repository
 
-import com.marekmacko.kotlinapp.DataProviderSource
+import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.api.WeatherService
 import com.marekmacko.kotlinapp.data.response.WeeklyForecast
 import com.nhaarman.mockito_kotlin.any
@@ -30,7 +30,7 @@ class WeatherRepositoryTest {
     lateinit var weatherRepository: WeatherRepository
 
     @Test
-    @UseDataProvider("getWeeklyForecast", location = arrayOf(DataProviderSource::class))
+    @UseDataProvider("getWeeklyForecast", location = arrayOf(MockData::class))
     fun completeIsCalledOnDataReturn(weeklyForecast: WeeklyForecast) {
         whenever(weatherService.getWeeklyForecast(any())).thenReturn(Observable.just(weeklyForecast))
 

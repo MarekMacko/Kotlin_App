@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.marekmacko.kotlinapp.R
 import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.data.response.Temperature
+import com.marekmacko.kotlinapp.util.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_daily_forecast.*
 
 
@@ -44,10 +45,10 @@ class DailyForecastFragment : Fragment() {
 
     // TODO: make different model
     private fun bindViewsWithForecast(forecast: ForecastShort) = with(forecast) {
-//        iconView.loadFromUrl(weather.iconUrl)
-//        descriptionView.text = weather.description
-//        pressureValueView.text = pressure.toString()
-//        humidityValueView.text = speed.toString()
+        iconView.loadFromUrl(iconUrl)
+        descriptionView.text = description
+        pressureValueView.text = ""
+        humidityValueView.text = ""
 //        bindTemperature(temp)
     }
 

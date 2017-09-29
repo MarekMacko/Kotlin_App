@@ -1,6 +1,6 @@
 package com.marekmacko.kotlinapp.mvp
 
-import com.marekmacko.kotlinapp.DataProviderSource
+import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.RxImmediateSchedulerRule
 import com.marekmacko.kotlinapp.data.ui.ForecastShort
 import com.marekmacko.kotlinapp.repository.WeatherRepository
@@ -36,7 +36,7 @@ class WeatherPresenterTest {
     lateinit var weatherPresenter: WeatherPresenter
 
     @Test
-    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(DataProviderSource::class))
+    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(MockData::class))
     fun showLoadingIsCalledOnFetchForecast(forecastList: List<ForecastShort>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
@@ -46,7 +46,7 @@ class WeatherPresenterTest {
     }
 
     @Test
-    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(DataProviderSource::class))
+    @UseDataProvider("getWeeklyForecastShort", location = arrayOf(MockData::class))
     fun updateWeeklyForecastIsCalledWhenDataReturns(forecastList: List<ForecastShort>) {
         whenever(weatherRepository.getWeeklyForecast()).thenReturn(Observable.just(forecastList))
 
