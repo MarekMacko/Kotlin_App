@@ -108,11 +108,14 @@ class WeeklyForecastFragmentTest {
         }.whenever(presenter).fetchForecast()
 
         controller.create().start().visible()
+
+        // TODO: click on list item
     }
 
+    // TODO: get from mock data
     private fun getWeeklyForecastShort(): List<Forecast> {
-        val forecastShort = Forecast(MockData.DATE, MockData.DESCRIPTION,
-                MockData.MIN_TEMPERATURE, MockData.MAX_TEMPERATURE, MockData.ICON_URL)
+        val forecastShort = Forecast(MockData.DATE, MockData.DESCRIPTION, MockData.TEMPERATURE,
+                MockData.HUMIDITY, MockData.PRESSURE, MockData.ICON_URL)
         return (listOf(forecastShort))
     }
 }
