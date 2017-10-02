@@ -3,7 +3,6 @@ package com.marekmacko.kotlinapp.ui
 import android.view.View
 import com.marekmacko.kotlinapp.BuildConfig
 import com.marekmacko.kotlinapp.MockData
-import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.getDaggerMockRule
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import com.nhaarman.mockito_kotlin.*
@@ -91,31 +90,11 @@ class WeeklyForecastFragmentTest {
     @Test
     fun dataIsSetup() {
         doAnswer {
-            weeklyForecastFragment.updateWeeklyForecast(getWeeklyForecastShort())
+            weeklyForecastFragment.updateWeeklyForecast(MockData.getWeeklyForecastList())
         }.whenever(presenter).fetchForecast()
 
         controller.create().start()
 
         assertEquals(weeklyForecastFragment.forecastListView.adapter.itemCount, 1)
-    }
-
-    @Test
-    fun clickOnForecastStartsNewFragment() {
-        doAnswer {
-            weeklyForecastFragment.updateWeeklyForecast(getWeeklyForecastShort())
-            weeklyForecastFragment.forecastListView.measure(0, 0)
-            weeklyForecastFragment.forecastListView.layout(0, 0, 100, 10000)
-        }.whenever(presenter).fetchForecast()
-
-        controller.create().start().visible()
-
-        // TODO: click on list item
-    }
-
-    // TODO: get from mock data
-    private fun getWeeklyForecastShort(): List<Forecast> {
-        val forecastShort = Forecast(MockData.DATE, MockData.DESCRIPTION, MockData.TEMPERATURE,
-                MockData.HUMIDITY, MockData.PRESSURE, MockData.ICON_URL)
-        return (listOf(forecastShort))
     }
 }

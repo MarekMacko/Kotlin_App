@@ -39,12 +39,19 @@ class MockData {
 
         @DataProvider
         @JvmStatic
-        fun getWeeklyForecast(): Array<Array<Any>> {
+        fun getWeeklyForecastArray(): Array<Array<Any>> {
             val forecastShort = getForecast()
             return arrayOf(arrayOf<Any>(listOf(forecastShort)))
         }
 
         @JvmStatic
         fun getForecast() = Forecast(DATE, DESCRIPTION, TEMPERATURE, HUMIDITY, PRESSURE, ICON_URL)
+
+        @JvmStatic
+        fun getWeeklyForecastList(): List<Forecast> {
+            val forecastShort = Forecast(MockData.DATE, MockData.DESCRIPTION, MockData.TEMPERATURE,
+                    MockData.HUMIDITY, MockData.PRESSURE, MockData.ICON_URL)
+            return (listOf(forecastShort))
+        }
     }
 }
