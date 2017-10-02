@@ -15,6 +15,6 @@ class WeatherRepository(private val weatherService: WeatherService) {
     fun getWeeklyForecast(): Observable<List<Forecast>> =
             weatherService.getWeeklyForecast(API_ZIP_CODE)
                     .map {
-                        ModelMapper.convertResponseToForecastShort(it)
+                        ModelMapper.convertResponseToForecast(it)
                     }
 }

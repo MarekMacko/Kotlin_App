@@ -10,10 +10,9 @@ import com.tngtech.java.junit.dataprovider.DataProvider
 class MockData {
 
 
-
     companion object {
         const val DATE_STRING = "2017-10-02"
-//        const val DATE_STRING = "2017-10-02"
+        const val DATE_LONG = 1506970800L
         const val DESCRIPTION = "little rain"
         const val TEMP_MAX = 20f
         const val TEMP_MIN = 10f
@@ -37,8 +36,8 @@ class MockData {
         fun getWeeklyForecastResponse(): Array<Array<Any>> {
             val coordinates = Coordinates(COORD_LON, COORD_LAT)
             val city = City(CITY_ID, CITY_NAME, coordinates, CITY_COUNTRY, CITY_POPULATION)
-            val weather = listOf(Weather(DESCRIPTION, ICON_CODE))    // TODO: fix data
-            val dailyForecast = DailyForecast(1234, getTemperatureResponse(), PRESSURE, HUMIDITY, weather)
+            val weather = listOf(Weather(DESCRIPTION, ICON_CODE))
+            val dailyForecast = DailyForecast(DATE_LONG, getTemperatureResponse(), PRESSURE, HUMIDITY, weather)
             val weeklyForecast = WeeklyForecast(city, arrayListOf(dailyForecast))
             return arrayOf(arrayOf<Any>(weeklyForecast))
         }
@@ -51,19 +50,12 @@ class MockData {
 
         @DataProvider
         @JvmStatic
-        fun getWeeklyForecastArray(): Array<Array<Any>> {
-            val forecastShort = getForecast()
-            return arrayOf(arrayOf<Any>(listOf(forecastShort)))
-        }
-
-        @JvmStatic // TODO
-        fun getForecast() = Forecast(DATE_STRING, DESCRIPTION, getTemperature(), HUMIDITY, PRESSURE, ICON_URL)
+        fun getWeeklyForecastArray(): Array<Array<Any>> = arrayOf(arrayOf<Any>(getForecastList()))
 
         @JvmStatic
-        fun getWeeklyForecastList(): List<Forecast> { // TODO
-            val forecastShort = Forecast(MockData.DATE_STRING, MockData.DESCRIPTION, getTemperature(),
-                    MockData.HUMIDITY, MockData.PRESSURE, MockData.ICON_URL)
-            return (listOf(getForecast()))
+        fun getForecastList(): List<Forecast> {
+            val forecast = Forecast(DATE_STRING, DESCRIPTION, getTemperature(), HUMIDITY, PRESSURE, ICON_URL)
+            return (listOf(forecast))
         }
     }
 }
