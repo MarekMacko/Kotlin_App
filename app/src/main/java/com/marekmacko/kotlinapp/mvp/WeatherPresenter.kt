@@ -28,7 +28,5 @@ class WeatherPresenter(private val view: WeatherMvp.View,
         compositeDisposable.add(disposable)
     }
 
-    override fun cancelFetch() {
-        compositeDisposable.clear()
-    }
+    override fun cancelFetch() = compositeDisposable.clear()
 }

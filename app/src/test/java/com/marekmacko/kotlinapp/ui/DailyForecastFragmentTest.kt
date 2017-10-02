@@ -34,9 +34,7 @@ class DailyForecastFragmentTest {
     }
 
     @Test
-    fun titleIsSetup() {
-        assertEquals(MockData.DATE_STRING, fragment.activity.title)
-    }
+    fun titleIsSetup() = assertEquals(MockData.DATE_STRING, fragment.activity.title)
 
     @Test
     fun forecastDataIsSetup() {

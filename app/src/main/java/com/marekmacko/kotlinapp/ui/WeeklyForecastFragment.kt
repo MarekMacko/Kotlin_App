@@ -47,9 +47,8 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         loadingView.visibility = View.INVISIBLE
     }
 
-    override fun updateWeeklyForecast(weeklyForecast: List<Forecast>) {
-        forecastListAdapter.setWeeklyForecast(weeklyForecast)
-    }
+    override fun updateWeeklyForecast(weeklyForecast: List<Forecast>) =
+            forecastListAdapter.setWeeklyForecast(weeklyForecast)
 
     override fun showError() {
         errorView.visibility = View.VISIBLE
@@ -68,9 +67,8 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         initInjections()
     }
 
-    private fun initClickListeners() {
-        refreshIconView.setOnClickListener { presenter.fetchForecast() }
-    }
+    private fun initClickListeners() =
+            refreshIconView.setOnClickListener { presenter.fetchForecast() }
 
     private fun initAdapterWithList() {
         forecastListAdapter = ForecastListAdapter {

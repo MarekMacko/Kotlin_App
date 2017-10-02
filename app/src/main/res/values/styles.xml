@@ -6,6 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.ListItem">
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
     <style name="TextDailyWeather">
         <item name="android:textColor">@android:color/black</item>
     </style>

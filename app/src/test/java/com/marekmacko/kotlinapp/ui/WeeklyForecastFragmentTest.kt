@@ -21,9 +21,7 @@ import org.robolectric.annotation.Config
 @Config(constants = BuildConfig::class)
 class WeeklyForecastFragmentTest {
 
-    @get:Rule
-    val daggerMockRule = getDaggerMockRule()
-
+    @get:Rule val daggerMockRule = getDaggerMockRule()
     private val presenter: WeatherPresenter = mock()
     private lateinit var weeklyForecastFragment: WeeklyForecastFragment
     private lateinit var controller: FragmentController<WeeklyForecastFragment>
