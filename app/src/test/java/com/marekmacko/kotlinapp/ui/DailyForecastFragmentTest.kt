@@ -1,44 +1,53 @@
 package com.marekmacko.kotlinapp.ui
 
+import android.support.v4.app.FragmentActivity
 import com.marekmacko.kotlinapp.BuildConfig
 import com.marekmacko.kotlinapp.MockData
 import kotlinx.android.synthetic.main.fragment_daily_forecast.*
-import kotlinx.android.synthetic.main.item_forecast.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
-import org.robolectric.util.FragmentTestUtil
 
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class)
 class DailyForecastFragmentTest {
 
     private lateinit var fragment: DailyForecastFragment
+    private lateinit var activityController:ActivityController<FragmentActivity>
 
     @Before
     fun setUp() {
-        fragment = DailyForecastFragment.newInstance(MockData.getForecast())
-        FragmentTestUtil.startFragment(fragment)
+        val forecast = MockData.getForecastList()[0]
+        fragment = DailyForecastFragment.newInstance(forecast)
+        activityController = Robolectric.buildActivity(FragmentActivity::class.java)
+        activityController.get()
+                .fragmentManager
+                .beginTransaction()
+                .add(fragment, null)
+                .commit()
+        activityController.create().start().resume().visible()
     }
 
     @Test
     fun titleIsSetup() {
-        assertEquals(MockData.DATE, fragment.activity.title)
+        assertEquals(MockData.DATE_STRING, fragment.activity.title)
     }
 
     @Test
     fun forecastDataIsSetup() {
-        // TODO: fix order either in xml file
-        assertEquals(MockData.PRESSURE, fragment.description.text)
-        assertEquals(MockData.HUMIDITY, fragment.humidityValueView.text)
-        assertEquals(MockData.TEMP_DAY, fragment.tempDayValueView.text)
-        assertEquals(MockData.TEMP_MORNING, fragment.tempMorningValueView.text)
-        assertEquals(MockData.TEMP_EVENING, fragment.tempEveningValueView.text)
-        assertEquals(MockData.TEMP_NIGHT, fragment.tempNightValueView.text)
-        assertEquals(MockData.TEMP_MAX, fragment.tempMaxValueView.text)
-        assertEquals(MockData.TEMP_MIN, fragment.tempMinValueView.text)
+        assertEquals(MockData.DESCRIPTION, fragment.descriptionView.text)
+        assertEquals(MockData.PRESSURE.toString(), fragment.pressureValueView.text)
+        assertEquals(MockData.HUMIDITY.toString(), fragment.humidityValueView.text)
+        assertEquals(MockData.TEMP_MAX.toString(), fragment.tempMaxValueView.text)
+        assertEquals(MockData.TEMP_MIN.toString(), fragment.tempMinValueView.text)
+        assertEquals(MockData.TEMP_DAY.toString(), fragment.tempDayValueView.text)
+        assertEquals(MockData.TEMP_NIGHT.toString(), fragment.tempNightValueView.text)
+        assertEquals(MockData.TEMP_MORNING.toString(), fragment.tempMorningValueView.text)
+        assertEquals(MockData.TEMP_EVENING.toString(), fragment.tempEveningValueView.text)
     }
 }

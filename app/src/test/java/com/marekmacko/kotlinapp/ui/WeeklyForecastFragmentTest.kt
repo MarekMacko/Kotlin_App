@@ -90,7 +90,7 @@ class WeeklyForecastFragmentTest {
     @Test
     fun dataIsSetup() {
         doAnswer {
-            weeklyForecastFragment.updateWeeklyForecast(MockData.getWeeklyForecastList())
+            weeklyForecastFragment.updateWeeklyForecast(MockData.getForecastList())
         }.whenever(presenter).fetchForecast()
 
         controller.create().start()
