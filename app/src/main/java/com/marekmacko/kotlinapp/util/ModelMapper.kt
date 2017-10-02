@@ -10,13 +10,10 @@ class ModelMapper {
 
     companion object {
 
-        fun convertResponseToForecast(weeklyForecast: WeeklyForecast): List<Forecast> {
-            val forecastsShort = ArrayList<Forecast>() // TODO: find better solution
-            weeklyForecast.days.forEach {
-                forecastsShort.add(convertDailyForecast(it))
-            }
-            return forecastsShort
-        }
+        fun convertResponseToForecast(weeklyForecast: WeeklyForecast): List<Forecast> =
+                weeklyForecast.days.map {
+                    convertDailyForecast(it)
+                }
 
         private fun convertDailyForecast(dailyForecast: DailyForecast) = with(dailyForecast) {
             val weather = weather[0]
