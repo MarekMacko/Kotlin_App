@@ -1,5 +1,6 @@
 package com.marekmacko.kotlinapp.data
 
+import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.data.response.Weather
 import org.junit.Test
 
@@ -9,9 +10,7 @@ class WeatherTest {
 
     @Test
     fun getIconUrl() {
-        val iconCode = "10d"
-        val expectedIconUrl = "http://openweathermap.org/img/w/$iconCode.png"
-        val weather = Weather(1, "", "", iconCode)
-        assertEquals(weather.iconUrl, expectedIconUrl)
+        val weather = Weather(MockData.DESCRIPTION, MockData.ICON_CODE)
+        assertEquals(weather.iconUrl, MockData.ICON_URL)
     }
 }

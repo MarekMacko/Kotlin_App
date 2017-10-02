@@ -9,7 +9,6 @@ import com.tngtech.java.junit.dataprovider.DataProvider
 
 class MockData {
 
-
     companion object {
         const val DATE_STRING = "2017-10-02"
         const val DATE_LONG = 1506970800L
@@ -22,8 +21,8 @@ class MockData {
         const val TEMP_EVENING = 12f
         const val HUMIDITY = 60
         const val PRESSURE = 80f
-        const val ICON_URL = "url" // TODO
-        const val ICON_CODE = "10d" // TODO
+        const val ICON_CODE = "10d"
+        const val ICON_URL = "http://openweathermap.org/img/w/$ICON_CODE.png"
         const val COORD_LON = -122.0839f
         const val COORD_LAT = 37.3861f
         const val CITY_ID = 123L
