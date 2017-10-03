@@ -21,8 +21,8 @@ class MockData {
         const val TEMP_EVENING = 12f
         const val HUMIDITY = 60
         const val PRESSURE = 80f
-        const val ICON_CODE = "10d"
-        const val ICON_URL = "http://openweathermap.org/img/w/$ICON_CODE.png"
+        const val ICON = "10d"
+        const val ICON_URL = "http://openweathermap.org/img/w/$ICON.png"
         const val COORD_LON = -122.0839f
         const val COORD_LAT = 37.3861f
         const val CITY_ID = 123L
@@ -35,7 +35,7 @@ class MockData {
         fun getWeeklyForecastResponse(): Array<Array<Any>> {
             val coordinates = Coordinates(COORD_LON, COORD_LAT)
             val city = City(CITY_ID, CITY_NAME, coordinates, CITY_COUNTRY, CITY_POPULATION)
-            val weather = listOf(Weather(DESCRIPTION, ICON_CODE))
+            val weather = listOf(Weather(DESCRIPTION, ICON))
             val dailyForecast = DailyForecast(DATE_LONG, getTemperatureResponse(), PRESSURE, HUMIDITY, weather)
             val weeklyForecast = WeeklyForecast(city, arrayListOf(dailyForecast))
             return arrayOf(arrayOf<Any>(weeklyForecast))

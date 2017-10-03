@@ -10,7 +10,7 @@ class WeatherTest {
 
     @Test
     fun getIconUrl() {
-        val weather = Weather(MockData.DESCRIPTION, MockData.ICON_CODE)
+        val weather = Weather(MockData.DESCRIPTION, MockData.ICON)
         assertEquals(weather.iconUrl, MockData.ICON_URL)
     }
 }
