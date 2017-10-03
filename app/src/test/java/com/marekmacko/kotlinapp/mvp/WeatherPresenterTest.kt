@@ -5,7 +5,6 @@ import com.marekmacko.kotlinapp.RxImmediateSchedulerRule
 import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.repository.WeatherRepository
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.whenever
 import com.tngtech.java.junit.dataprovider.DataProviderRunner
 import com.tngtech.java.junit.dataprovider.UseDataProvider
@@ -42,7 +41,7 @@ class WeatherPresenterTest {
 
         weatherPresenter.fetchForecast()
 
-        verify(view, times(1)).showLoading()
+        verify(view).showLoading()
     }
 
     @Test
@@ -52,7 +51,7 @@ class WeatherPresenterTest {
 
         weatherPresenter.fetchForecast()
 
-        verify(view, times(1)).updateWeeklyForecast(forecastList)
+        verify(view).updateWeeklyForecast(forecastList)
     }
 
     @Test
@@ -62,7 +61,7 @@ class WeatherPresenterTest {
 
         weatherPresenter.fetchForecast()
 
-        verify(view, times(1)).showError()
+        verify(view).showError()
     }
 
     @Test
@@ -71,6 +70,6 @@ class WeatherPresenterTest {
 
         weatherPresenter.fetchForecast()
 
-        verify(view, times(1)).hideLoading()
+        verify(view).hideLoading()
     }
 }

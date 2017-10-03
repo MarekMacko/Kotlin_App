@@ -82,7 +82,7 @@ class WeeklyForecastFragmentTest {
     fun fetchIsCanceledInOnPause() {
         controller.create().start().resume().visible().pause().stop().destroy()
 
-        verify(presenter, times(1)).cancelFetch()
+        verify(presenter).cancelFetch()
     }
 
     @Test
