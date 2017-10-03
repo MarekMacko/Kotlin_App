@@ -18,7 +18,7 @@ import org.robolectric.annotation.Config
 class DailyForecastFragmentTest {
 
     private lateinit var fragment: DailyForecastFragment
-    private lateinit var activityController:ActivityController<FragmentActivity>
+    private lateinit var activityController: ActivityController<FragmentActivity>
 
     @Before
     fun setUp() {
@@ -37,15 +37,38 @@ class DailyForecastFragmentTest {
     fun titleIsSetup() = assertEquals(MockData.DATE_STRING, fragment.activity.title)
 
     @Test
-    fun forecastDataIsSetup() {
-        assertEquals(MockData.DESCRIPTION, fragment.descriptionView.text)
-        assertEquals(MockData.PRESSURE.toString(), fragment.pressureValueView.text)
-        assertEquals(MockData.HUMIDITY.toString(), fragment.humidityValueView.text)
-        assertEquals(MockData.TEMP_MAX.toString(), fragment.tempMaxValueView.text)
-        assertEquals(MockData.TEMP_MIN.toString(), fragment.tempMinValueView.text)
-        assertEquals(MockData.TEMP_DAY.toString(), fragment.tempDayValueView.text)
-        assertEquals(MockData.TEMP_NIGHT.toString(), fragment.tempNightValueView.text)
-        assertEquals(MockData.TEMP_MORNING.toString(), fragment.tempMorningValueView.text)
+    fun descriptionIsSetupProperly() =
+            assertEquals(MockData.DESCRIPTION, fragment.descriptionView.text)
+
+    @Test
+    fun pressureIsSetupProperly() =
+            assertEquals(MockData.DESCRIPTION, fragment.descriptionView.text)
+
+    @Test
+    fun humidityIsSetupProperly() =
+            assertEquals(MockData.HUMIDITY.toString(), fragment.humidityValueView.text)
+
+    @Test
+    fun tempMaxIsSetupProperly() =
+            assertEquals(MockData.TEMP_MAX.toString(), fragment.tempMaxValueView.text)
+
+    @Test
+    fun tempMinIsSetupProperly() =
+            assertEquals(MockData.TEMP_MIN.toString(), fragment.tempMinValueView.text)
+
+    @Test
+    fun tempDayIsSetupProperly() =
+            assertEquals(MockData.TEMP_DAY.toString(), fragment.tempDayValueView.text)
+
+    @Test
+    fun tempNightIsSetupProperly() =
+            assertEquals(MockData.TEMP_NIGHT.toString(), fragment.tempNightValueView.text)
+
+    @Test
+    fun tempMorningIsSetupProperly() =
+            assertEquals(MockData.TEMP_MORNING.toString(), fragment.tempMorningValueView.text)
+
+    @Test
+    fun tempEveningIsSetupProperly() =
         assertEquals(MockData.TEMP_EVENING.toString(), fragment.tempEveningValueView.text)
-    }
 }
