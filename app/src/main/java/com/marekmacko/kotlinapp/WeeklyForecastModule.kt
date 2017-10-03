@@ -5,6 +5,7 @@ import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
 import com.marekmacko.kotlinapp.repository.WeatherRepository
 import com.marekmacko.kotlinapp.ui.WeeklyForecastFragment
+import com.marekmacko.kotlinapp.util.ModelMapper
 import dagger.Module
 import dagger.Provides
 
@@ -20,5 +21,9 @@ class WeeklyForecastModule(private val weeklyForecastFragment: WeeklyForecastFra
     fun provideView(): WeatherMvp.View = weeklyForecastFragment
 
     @Provides
-    fun provideWeatherRepository(weatherService: WeatherService) = WeatherRepository(weatherService)
+    fun provideWeatherRepository(weatherService: WeatherService, modelMapper: ModelMapper) =
+            WeatherRepository(weatherService, modelMapper)
+
+    @Provides
+    fun provideModelMapper() = ModelMapper()
 }

@@ -11,10 +11,12 @@ import org.junit.runner.RunWith
 @RunWith(DataProviderRunner::class)
 class ModelMapperTest {
 
+    private val modelMapper = ModelMapper()
+
     @Test
     @UseDataProvider("getWeeklyForecastResponse", location = arrayOf(MockData::class))
     fun convertResponseToForecastCheckBasicInfo(weeklyForecast: WeeklyForecast) {
-        val forecast = ModelMapper.convertResponseToForecast(weeklyForecast)[0]
+        val forecast = modelMapper.convertResponseToForecast(weeklyForecast)[0]
         with(weeklyForecast[0]) {
             assertEquals(date, forecast.date)
             assertEquals(weather[0].description, forecast.description)
@@ -26,7 +28,7 @@ class ModelMapperTest {
     @Test
     @UseDataProvider("getWeeklyForecastResponse", location = arrayOf(MockData::class))
     fun convertResponseToForecastCheckTemperature(weeklyForecast: WeeklyForecast) {
-        val forecast = ModelMapper.convertResponseToForecast(weeklyForecast)[0]
+        val forecast = modelMapper.convertResponseToForecast(weeklyForecast)[0]
         with(weeklyForecast[0].temp) {
             assertEquals(max, forecast.temperature.max)
             assertEquals(min, forecast.temperature.min)
