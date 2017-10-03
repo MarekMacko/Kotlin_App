@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_weather_width">@dimen/image_weather_height</dimen>
+    <dimen name="image_weather_height">150dp</dimen>
+    <dimen name="weather_info_block_margin_start">20dp</dimen>
+    <dimen name="weather_info_block_margin_top">20dp</dimen>
+    <dimen name="icon_refresh_width">48dp</dimen>
+    <dimen name="icon_refresh_height">48dp</dimen>
+    <dimen name="icon_weather_forecast_item_width">48dp</dimen>
+    <dimen name="icon_weather_forecast_item_height">48dp</dimen>
+    <dimen name="list_item_forecast_height">72dp</dimen>
+</resources>

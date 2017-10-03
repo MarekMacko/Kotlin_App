@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/refreshIconView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/icon_refresh_width"
+        android:layout_height="@dimen/icon_refresh_height"
         android:src="@drawable/ic_refresh_accent_24dp"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"

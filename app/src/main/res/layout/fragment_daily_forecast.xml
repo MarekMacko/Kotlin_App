@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/iconView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/image_weather_width"
+        android:layout_height="@dimen/image_weather_height"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,8 +30,8 @@
         style="@style/TextDailyWeather.Label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/weather_info_block_margin_start"
+        android:layout_marginTop="@dimen/weather_info_block_margin_top"
         android:text="@string/pressure"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionView" />
