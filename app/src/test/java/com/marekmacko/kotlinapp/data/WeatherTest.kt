@@ -11,6 +11,14 @@ class WeatherTest {
     @Test
     fun getIconUrl() {
         val weather = Weather(MockData.DESCRIPTION, MockData.ICON)
+
         assertEquals(weather.iconUrl, MockData.ICON_URL)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun getIconUrlX() {
+        val weather = Weather(MockData.DESCRIPTION, "")
+
+        weather.iconUrl
     }
 }

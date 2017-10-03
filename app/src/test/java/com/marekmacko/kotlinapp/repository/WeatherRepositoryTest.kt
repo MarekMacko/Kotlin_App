@@ -3,8 +3,10 @@ package com.marekmacko.kotlinapp.repository
 import com.marekmacko.kotlinapp.MockData
 import com.marekmacko.kotlinapp.api.WeatherService
 import com.marekmacko.kotlinapp.data.response.WeeklyForecast
+import com.marekmacko.kotlinapp.util.ModelMapper
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.whenever
 import com.tngtech.java.junit.dataprovider.DataProviderRunner
 import com.tngtech.java.junit.dataprovider.UseDataProvider
@@ -25,6 +27,7 @@ class WeatherRepositoryTest {
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     private val weatherService: WeatherService = mock()
+    private val modelMapper: ModelMapper = spy()
 
     @InjectMocks
     lateinit var weatherRepository: WeatherRepository

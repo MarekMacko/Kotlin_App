@@ -16,6 +16,7 @@ class MainActivityTest {
     @Test
     fun activityNotNull() {
         val activity = Robolectric.setupActivity(MainActivity::class.java)
+
         assertNotNull(activity)
     }
 }

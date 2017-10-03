@@ -17,6 +17,7 @@ class ModelMapperTest {
     @UseDataProvider("getWeeklyForecastResponse", location = arrayOf(MockData::class))
     fun convertResponseToForecastCheckBasicInfo(weeklyForecast: WeeklyForecast) {
         val forecast = modelMapper.convertResponseToForecast(weeklyForecast)[0]
+
         with(weeklyForecast[0]) {
             assertEquals(date, forecast.date)
             assertEquals(weather[0].description, forecast.description)
@@ -29,6 +30,7 @@ class ModelMapperTest {
     @UseDataProvider("getWeeklyForecastResponse", location = arrayOf(MockData::class))
     fun convertResponseToForecastCheckTemperature(weeklyForecast: WeeklyForecast) {
         val forecast = modelMapper.convertResponseToForecast(weeklyForecast)[0]
+
         with(weeklyForecast[0].temp) {
             assertEquals(max, forecast.temperature.max)
             assertEquals(min, forecast.temperature.min)
