@@ -6,6 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.ListItem">
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
     <style name="TextDailyWeather">
         <item name="android:textColor">@android:color/black</item>
     </style>
@@ -21,6 +25,11 @@
 
     <style name="TextDailyWeather.Param">
         <item name="android:paddingStart">2dp</item>
+    </style>
+
+    <style name="TextError">
+        <item name="android:textColor">@color/colorTextError</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

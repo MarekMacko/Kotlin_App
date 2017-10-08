@@ -5,25 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.marekmacko.kotlinapp.DaggerWeatherComponent
+import com.marekmacko.kotlinapp.App
 import com.marekmacko.kotlinapp.ForecastListAdapter
 import com.marekmacko.kotlinapp.R
-import com.marekmacko.kotlinapp.api.NetworkModule
-import com.marekmacko.kotlinapp.data.DailyForecast
-import com.marekmacko.kotlinapp.data.WeeklyForecast
+import com.marekmacko.kotlinapp.WeeklyForecastModule
+import com.marekmacko.kotlinapp.data.ui.Forecast
 import com.marekmacko.kotlinapp.mvp.WeatherMvp
 import com.marekmacko.kotlinapp.mvp.WeatherPresenter
-import com.marekmacko.kotlinapp.mvp.WeatherPresenterModule
-import com.marekmacko.kotlinapp.repository.WeatherRepository
 import kotlinx.android.synthetic.main.fragment_weekly_forecast.*
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
 class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
 
     @Inject lateinit var presenter: WeatherPresenter
-    @Inject lateinit var weatherRepository: WeatherRepository
     private lateinit var forecastListAdapter: ForecastListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -45,28 +40,35 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
     }
 
     override fun showLoading() {
-        loadingView.show()
+        loadingView.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        loadingView.hide()
+        loadingView.visibility = View.INVISIBLE
     }
 
-    override fun updateWeeklyForecast(weeklyForecast: WeeklyForecast) {
-        forecastListAdapter.setItems(weeklyForecast)
+    override fun updateWeeklyForecast(weeklyForecast: List<Forecast>) =
+            forecastListAdapter.setWeeklyForecast(weeklyForecast)
+
+    override fun showError() {
+        errorView.visibility = View.VISIBLE
+        refreshIconView.visibility = View.VISIBLE
     }
 
-    override fun showError(message: String) = toast(message)
+    override fun hideError() {
+        errorView.visibility = View.INVISIBLE
+        refreshIconView.visibility = View.INVISIBLE
+    }
 
     private fun init() {
         activity.title = getString(R.string.forecasts)
         initAdapterWithList()
-        DaggerWeatherComponent.builder()
-                .networkModule(NetworkModule(activity))
-                .weatherPresenterModule(WeatherPresenterModule(this))
-                .build()
-                .inject(this)
+        initClickListeners()
+        initInjections()
     }
+
+    private fun initClickListeners() =
+            refreshIconView.setOnClickListener { presenter.fetchForecast() }
 
     private fun initAdapterWithList() {
         forecastListAdapter = ForecastListAdapter {
@@ -75,8 +77,16 @@ class WeeklyForecastFragment : Fragment(), WeatherMvp.View {
         forecastListView.adapter = forecastListAdapter
     }
 
-    private fun startDailyForecastFragment(dailyForecast: DailyForecast) {
-        val fragment = DailyForecastFragment.newInstance(dailyForecast)
+    private fun initInjections() {
+        val app = activity.application as App
+        app.component.weeklyForecastComponentBuilder()
+                .weeklyForecastModule(WeeklyForecastModule(this))
+                .build()
+                .inject(this)
+    }
+
+    private fun startDailyForecastFragment(forecast: Forecast) {
+        val fragment = DailyForecastFragment.newInstance(forecast)
         fragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, fragment)
                 .addToBackStack(null)

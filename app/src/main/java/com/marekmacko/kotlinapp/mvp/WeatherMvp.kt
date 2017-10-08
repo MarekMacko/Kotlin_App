@@ -1,6 +1,6 @@
 package com.marekmacko.kotlinapp.mvp
 
-import com.marekmacko.kotlinapp.data.WeeklyForecast
+import com.marekmacko.kotlinapp.data.ui.Forecast
 
 
 interface WeatherMvp {
@@ -10,9 +10,11 @@ interface WeatherMvp {
 
         fun hideLoading()
 
-        fun updateWeeklyForecast(weeklyForecast: WeeklyForecast)
+        fun updateWeeklyForecast(weeklyForecast: List<Forecast>)
 
-        fun showError(message: String)
+        fun showError()
+
+        fun hideError()
     }
 
     interface Presenter {

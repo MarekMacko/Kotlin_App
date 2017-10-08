@@ -1,6 +1,6 @@
 package com.marekmacko.kotlinapp.api
 
-import com.marekmacko.kotlinapp.data.WeeklyForecast
+import com.marekmacko.kotlinapp.data.response.WeeklyForecast
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
